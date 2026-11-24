@@ -1,0 +1,297 @@
+
+.dsa-game {
+  --dsa-bg: #071b2d;
+  --dsa-panel: #12354a;
+  --dsa-text: #f1f5f9;
+  --dsa-muted: #94a3b8;
+  --dsa-accent: #22d3ee;
+
+  box-sizing: border-box;
+  min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+
+  color: var(--dsa-text);
+  background: var(--dsa-bg);
+  font-family: system-ui, sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.dsa-game *,
+.dsa-game *::before,
+.dsa-game *::after {
+  box-sizing: border-box;
+}
+
+.dsa-game h1,
+.dsa-game h2,
+.dsa-game h3,
+.dsa-game p {
+  margin: 0 0 8px;
+}
+
+.dsa-game button {
+  border: 1px solid #155e75;
+  border-radius: 8px;
+  background: #0e7490;
+  color: white;
+  padding: 10px 16px;
+  cursor: pointer;
+  font: inherit;
+  transition: background 150ms;
+}
+
+.dsa-game button:hover:not(:disabled) {
+  background: #0891b2;
+}
+
+.dsa-game button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.dsa-game input,
+.dsa-game select {
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid #36566d;
+  border-radius: 8px;
+  background: #0f2940;
+  color: white;
+  font: inherit;
+}
+
+.dsa-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.dsa-panel,
+.dsa-lobby {
+  background: var(--dsa-panel);
+  border: 1px solid #234b61;
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.dsa-lobby {
+  max-width: 700px;
+  width: 100%;
+  margin: 40px auto;
+}
+
+.dsa-lobby-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 100px auto;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.dsa-lobby > button {
+  margin: 6px 8px 0 0;
+}
+
+.dsa-oxygen-track {
+  height: 12px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #284b63;
+}
+
+.dsa-oxygen-fill {
+  height: 100%;
+  border-radius: inherit;
+  transition: width 300ms;
+}
+
+.dsa-board {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(76px, 1fr)
+  );
+  gap: 10px;
+  padding: 18px;
+  border-radius: 12px;
+
+  background: linear-gradient(
+    180deg,
+    #164e63,
+    #020617
+  );
+}
+
+.dsa-tile {
+  min-height: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  position: relative;
+  padding: 6px;
+}
+
+.dsa-tile small {
+  color: #cbd5e1;
+}
+
+.dsa-chip {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #082f49;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.dsa-chip small {
+  color: inherit;
+}
+
+.dsa-level-0 {
+  border: 2px dashed #64748b;
+  border-radius: 8px;
+  color: #cbd5e1;
+}
+
+.dsa-level-1 {
+  background: #34d399;
+  clip-path: polygon(
+    50% 0%,
+    100% 100%,
+    0% 100%
+  );
+  padding-top: 12px;
+}
+
+.dsa-level-2 {
+  background: #38bdf8;
+  border-radius: 4px;
+}
+
+.dsa-level-3 {
+  background: #a78bfa;
+  clip-path: polygon(
+    50% 0%,
+    100% 38%,
+    81% 100%,
+    19% 100%,
+    0% 38%
+  );
+}
+
+.dsa-level-4 {
+  background: #fb923c;
+  clip-path: polygon(
+    50% 0%,
+    100% 25%,
+    100% 75%,
+    50% 100%,
+    0% 75%,
+    0% 25%
+  );
+}
+
+.dsa-submarine {
+  background: #ffffff0d;
+  border-radius: 8px;
+}
+
+.dsa-submarine > span {
+  font-size: 30px;
+}
+
+.dsa-divers {
+  min-height: 22px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3px;
+}
+
+.dsa-diver {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 21px;
+  height: 21px;
+  border: 1px solid white;
+  border-radius: 50%;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.dsa-players {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(150px, 1fr)
+  );
+  gap: 12px;
+}
+
+.dsa-active-player {
+  outline: 2px solid var(--dsa-accent);
+}
+
+.dsa-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.dsa-score-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+}
+
+.dsa-score-table th,
+.dsa-score-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #36566d;
+}
+
+.dsa-warning,
+.dsa-error {
+  padding: 12px;
+  border-radius: 8px;
+  background: #7f1d1d;
+  color: #fecaca;
+}
+
+@media (max-width: 600px) {
+  .dsa-game {
+    padding: 12px;
+  }
+
+  .dsa-lobby-row {
+    grid-template-columns: minmax(0, 1fr) 85px;
+  }
+
+  .dsa-lobby-row button {
+    grid-column: 1 / -1;
+  }
+
+  .dsa-board {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(58px, 1fr)
+    );
+    padding: 10px;
+    gap: 5px;
+  }
+}
