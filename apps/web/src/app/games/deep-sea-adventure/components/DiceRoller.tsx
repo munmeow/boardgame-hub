@@ -6,7 +6,7 @@ import {
 
 import type { CSSProperties } from "react";
 
-import type { DiceResult } from "../types";
+import type { DiceResult } from "@boardgame-hub/abyss-relay/types";
 
 import "../styles/dice.css";
 

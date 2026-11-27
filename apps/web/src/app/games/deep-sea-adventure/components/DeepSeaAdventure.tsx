@@ -9,25 +9,25 @@ import {
 import type {
   GameState,
   DiceResult,
-} from "../types";
+} from "@boardgame-hub/abyss-relay/types";
 
-import { setupGame } from "../engine/setup";
+import { setupGame } from "@boardgame-hub/abyss-relay/engine/setup";
 
 import {
   applyAction,
   type GameAction,
-} from "../engine/actions";
+} from "@boardgame-hub/abyss-relay/engine/actions";
 
-import { rollDice } from "../engine/turn";
+import { rollDice } from "@boardgame-hub/abyss-relay/engine/turn";
 
 import {
   calculateMovement,
   getMovementPath,
-} from "../engine/movement";
+} from "@boardgame-hub/abyss-relay/engine/movement";
 
 import {
   getCurrentPlayer,
-} from "../engine/state";
+} from "@boardgame-hub/abyss-relay/engine/state";
 
 import {
   chooseBotAction,
@@ -35,7 +35,7 @@ import {
   observeBotOpponentAction,
   recordCommittedRoll,
   type BotDifficulty,
-} from "../bot/bot";
+} from "@boardgame-hub/abyss-relay/bot/bot";
 
 import {
   useDiverAnimation,

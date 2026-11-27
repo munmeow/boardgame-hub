@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import type { CSSProperties } from "react";
-import type { BotDifficulty } from "../bot/bot";
+import type { BotDifficulty } from "@boardgame-hub/abyss-relay/bot/bot";
 import { PLAYER_COLORS } from "../constants/ui";
 import "../styles/bot.css";
 

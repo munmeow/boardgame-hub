@@ -1,0 +1,38 @@
+{
+  "name": "@boardgame-hub/abyss-relay",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./types": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/types/index.js"
+    },
+    "./engine/*": {
+      "types": "./dist/engine/*.d.ts",
+      "import": "./dist/engine/*.js"
+    },
+    "./bot/*": {
+      "types": "./dist/bot/*.d.ts",
+      "import": "./dist/bot/*.js"
+    },
+    "./rules/*": {
+      "types": "./dist/rules/*.d.ts",
+      "import": "./dist/rules/*.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "lint": "eslint --config ../../apps/web/eslint.config.js src"
+  },
+  "devDependencies": {
+    "typescript": "~6.0.3",
+    "vitest": "^5.1.1"
+  }
+}

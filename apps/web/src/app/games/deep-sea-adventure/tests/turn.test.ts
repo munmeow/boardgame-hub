@@ -17,7 +17,7 @@ describe("Deep Sea Adventure - Turn", () => {
 
     const result = startTurn(state);
 
-    expect(result.turnStage).toBe("declare");
+    expect(result.turnStage).toBe("swim");
     expect(result.oxygen).toBe(25);
   });
 

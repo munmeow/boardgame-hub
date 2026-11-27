@@ -1,0 +1,19 @@
+{
+  "name": "boardgame-hub",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "dev": "npm run dev -w web",
+    "build": "npm run build -w web",
+    "lint": "npm run lint -w web && npm run lint -w @boardgame-hub/abyss-relay",
+    "test": "npm run test:run -w @boardgame-hub/abyss-relay",
+    "check:engine": "npm run build -w @boardgame-hub/abyss-relay"
+  }
+}

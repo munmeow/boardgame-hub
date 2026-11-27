@@ -1,20 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import { DICE_ROLL_CONFIG } from "../constants/ui";
 
-import type { GameState } from "../types";
+import type { GameState } from "@boardgame-hub/abyss-relay/types";
 
 import type {
   GameAction,
-} from "../engine/actions";
+} from "@boardgame-hub/abyss-relay/engine/actions";
 
 import {
   getCurrentPlayer,
-} from "../engine/state";
+} from "@boardgame-hub/abyss-relay/engine/state";
 
 import {
   canPickUpTreasure,
   canDropTreasure,
-} from "../engine/treasure";
+} from "@boardgame-hub/abyss-relay/engine/treasure";
 
 interface Props {
   state: GameState;

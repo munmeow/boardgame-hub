@@ -5,12 +5,12 @@ import type { CSSProperties } from "react";
 import type {
   GameState,
   Treasure,
-} from "../types";
+} from "@boardgame-hub/abyss-relay/types";
 
 import {
   getRankings,
   compareScores,
-} from "../engine/scoring";
+} from "@boardgame-hub/abyss-relay/engine/scoring";
 
 import { PLAYER_COLORS } from "../constants/ui";
 

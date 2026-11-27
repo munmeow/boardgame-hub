@@ -8,13 +8,16 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest",
-    "test:run": "vitest run"
+    "test": "npm run test -w @boardgame-hub/abyss-relay",
+    "test:run": "npm run test:run -w @boardgame-hub/abyss-relay",
+    "predev": "npm run build -w @boardgame-hub/abyss-relay",
+    "prebuild": "npm run build -w @boardgame-hub/abyss-relay"
   },
   "dependencies": {
     "lucide-react": "^1.79.0",
     "react": "^19.3.1",
-    "react-dom": "^19.3.1"
+    "react-dom": "^19.3.1",
+    "@boardgame-hub/abyss-relay": "0.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

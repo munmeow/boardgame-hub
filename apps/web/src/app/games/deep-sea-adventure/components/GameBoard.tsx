@@ -5,7 +5,7 @@ import type { CSSProperties } from "react";
 import type {
   GameState,
   TrackTile,
-} from "../types";
+} from "@boardgame-hub/abyss-relay/types";
 
 import type {
   DiverAnimationState,

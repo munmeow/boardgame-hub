@@ -4,11 +4,11 @@ import type { CSSProperties } from "react";
 import type {
   GameState,
   Treasure,
-} from "../types";
+} from "@boardgame-hub/abyss-relay/types";
 
 import { PLAYER_COLORS } from "../constants/ui";
 
-import { calculateScore } from "../engine/scoring";
+import { calculateScore } from "@boardgame-hub/abyss-relay/engine/scoring";
 
 interface Props {
   state: GameState;
