@@ -66,6 +66,7 @@ export default function PrivateRooms() {
         const result = await request(socket,'room:resume',{code:session.code,token:session.token});
         if(!alive || !socket.connected || sessionRef.current!==session) return;
         if(result.ok && result.room) {setMemberId(session.memberId);update(result.room);setError('');}
+        else if(result.error === 'Request timed out. Reconnect before retrying.') {setError('Reconnecting to saved room…');socket.disconnect();window.setTimeout(()=>{if(alive && sessionRef.current===session) socket.connect();},1500);return;}
         else {setError(result.error || 'Could not resume room');sessionRef.current=null;saveSession(null);setRoom(null);setMemberId('');}
       }
       setConnected(true);
