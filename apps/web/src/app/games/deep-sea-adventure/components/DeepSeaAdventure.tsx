@@ -68,12 +68,26 @@ interface DiceDisplay {
   cargoCount: number;
 }
 
+const LOCAL_SAVE_KEY = "bgh-abyss-relay-local-v1";
+type LocalSave = { state: GameState; botLevels: Partial<Record<string, BotDifficulty>>; previousTreasureCounts: Record<string, number> };
+function readLocalSave(): LocalSave | null {
+  try {
+    const saved = JSON.parse(localStorage.getItem(LOCAL_SAVE_KEY) ?? "null") as LocalSave | null;
+    if (!saved || !Array.isArray(saved.state?.players) || !Array.isArray(saved.state?.track) || !saved.botLevels) return null;
+    return saved;
+  } catch { return null; }
+}
+function writeLocalSave(saved: LocalSave | null) {
+  try { if (saved) localStorage.setItem(LOCAL_SAVE_KEY, JSON.stringify(saved)); else localStorage.removeItem(LOCAL_SAVE_KEY); } catch { /* Storage unavailable */ }
+}
+
 export default function DeepSeaAdventure() {
+  const [restored] = useState(readLocalSave);
   const [state, setState] =
-    useState<GameState | null>(null);
+    useState<GameState | null>(restored?.state ?? null);
 
   const [botLevels, setBotLevels] =
-    useState<Partial<Record<string, BotDifficulty>>>({});
+    useState<Partial<Record<string, BotDifficulty>>>(restored?.botLevels ?? {});
 
   const [error, setError] =
     useState<string | null>(null);
@@ -92,7 +106,11 @@ export default function DeepSeaAdventure() {
 
   const previousTreasureCountsRef = useRef<
   Record<string, number>
->({});
+>(restored?.previousTreasureCounts ?? {});
+
+  useEffect(() => {
+    writeLocalSave(state ? { state, botLevels, previousTreasureCounts: previousTreasureCountsRef.current } : null);
+  }, [state, botLevels]);
 
   const {
     animation,
@@ -155,6 +173,7 @@ export default function DeepSeaAdventure() {
           const nextState =
             applyAction(state, action);
 
+          writeLocalSave({ state: nextState, botLevels, previousTreasureCounts: previousTreasureCountsRef.current });
           setAnimationPhase("turning");
 
           setDiceDisplay(null);
@@ -214,6 +233,8 @@ export default function DeepSeaAdventure() {
 
           setDiceDisplay(null);
 
+          // Persist the committed roll before animation so reload cannot reroll.
+          writeLocalSave({ state: nextState, botLevels, previousTreasureCounts: previousTreasureCountsRef.current });
           setAnimationPhase("rolling");
 
           const duration = requestedDuration === undefined || !Number.isFinite(requestedDuration)
@@ -324,6 +345,7 @@ if (
     },
     [
       state,
+      botLevels,
       wait,
       animateTurnBack,
       animateMovement,
@@ -391,6 +413,7 @@ if (
 
     setDiceDisplay(null);
 
+    writeLocalSave(null);
     setState(null);
 
     setBotLevels({});
