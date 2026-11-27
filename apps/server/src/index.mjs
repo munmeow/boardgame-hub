@@ -81,7 +81,14 @@ io.on('connection',socket=>{
   const enter=({room,member})=>{socket.join(room.code);publish(room);return {memberId:member.id,token:member.token,room:rooms.view(room)};};
   handle('room:create',d=>enter(rooms.create(socket.id,d.name)));
   handle('room:join',d=>enter(rooms.join(socket.id,d.code,d.name)));
-  handle('room:resume',d=>enter(rooms.resume(socket.id,d.code,d.token)));
+  handle('room:resume',d=>{
+    const resumed=rooms.resume(socket.id,d.code,d.token);
+    if(resumed.previousSocketId && resumed.previousSocketId!==socket.id){
+      const previous=io.sockets.sockets.get(resumed.previousSocketId);
+      if(previous){previous.leave(resumed.room.code);previous.emit('room:replaced',{code:resumed.room.code});previous.disconnect(true);}
+    }
+    return enter(resumed);
+  });
   handle('room:ready',d=>{const room=rooms.ready(socket.id,d.code,d.ready);publish(room);return {room:rooms.view(room)};});
   handle('room:bot:add',d=>{const room=rooms.addBot(socket.id,d.code,d.difficulty);publish(room);return {room:rooms.view(room)};});
   handle('room:bot:remove',d=>{const room=rooms.removeBot(socket.id,d.code,d.id);publish(room);return {room:rooms.view(room)};});
