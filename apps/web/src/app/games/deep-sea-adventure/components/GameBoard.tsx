@@ -475,12 +475,14 @@ export default function GameBoard({
       const desktop = window.innerWidth > 800;
       const availableHeight = window.innerHeight - element.getBoundingClientRect().top - 18;
       const widthScale = element.clientWidth / boardWidth;
-      const heightScale = desktop ? availableHeight / boardHeight : 1;
-      setScale(Math.max(desktop ? .55 : .65, Math.min(1, widthScale, heightScale)));
+      const heightScale = desktop ? availableHeight / boardHeight : Math.max(1, element.closest(".dsa-game-layout")?.querySelector(".dsa-table-center")?.clientHeight ?? availableHeight) / boardHeight;
+      setScale(Math.max(.01, Math.min(1, widthScale, heightScale)));
     };
     fit();
     const observer = new ResizeObserver(fit);
     observer.observe(element);
+    const center = element.closest(".dsa-table-center");
+    if (center) observer.observe(center);
     window.addEventListener("resize", fit);
     return () => { observer.disconnect(); window.removeEventListener("resize", fit); };
   }, [boardWidth, boardHeight]);
