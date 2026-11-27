@@ -1,0 +1,539 @@
+
+/* ========================================
+   DIVER CONTAINER
+   ======================================== */
+
+.dsa-diver {
+  --diver-color: #3b82f6;
+  --diver-facing: 1;
+  --diver-jump-height: 32px;
+  --diver-jump-duration: 350ms;
+  --diver-turn-duration: 600ms;
+
+  position: relative;
+
+  width: 52px;
+  height: 66px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  pointer-events: none;
+  user-select: none;
+
+  z-index: 10;
+}
+
+/* ========================================
+   DIVER MODEL
+   ======================================== */
+
+.dsa-diver-svg {
+  display: block;
+
+  width: 52px;
+  height: 63px;
+
+  overflow: visible;
+
+  filter:
+    drop-shadow(
+      0 3px 2px rgba(0, 0, 0, 0.25)
+    );
+}
+
+.dsa-diver-jump {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  transform-origin: center bottom;
+  will-change: transform;
+}
+
+.dsa-diver-facing {
+  width: 100%;
+  height: 100%;
+
+  transform: scaleX(var(--diver-facing));
+
+  transform-origin: center center;
+
+  transition:
+    transform
+    var(--diver-turn-duration)
+    cubic-bezier(0.4, 0, 0.2, 1);
+
+  will-change: transform;
+}
+
+.dsa-diver-idle {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  animation:
+    dsa-diver-idle
+    2.8s
+    ease-in-out
+    infinite;
+}
+
+/* ========================================
+   PLAYER NAME
+   ======================================== */
+
+.dsa-diver-name {
+  position: absolute;
+
+  bottom: -12px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  max-width: 90px;
+
+  padding: 2px 7px;
+
+  border-radius: 5px;
+
+  background: rgba(2, 6, 23, 0.85);
+
+  color: #f8fafc;
+
+  font-size: 10px;
+  font-weight: 700;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  z-index: 12;
+}
+
+/* ========================================
+   SHADOW
+   ======================================== */
+
+.dsa-diver-shadow {
+  position: absolute;
+
+  left: 50%;
+  bottom: 1px;
+
+  width: 34px;
+  height: 9px;
+
+  transform: translateX(-50%);
+
+  border-radius: 50%;
+
+  background: rgba(0, 0, 0, 0.4);
+
+  filter: blur(2px);
+
+  z-index: -1;
+}
+
+/* ========================================
+   ACTIVE PLAYER
+   ======================================== */
+
+.dsa-diver--active {
+  z-index: 20;
+}
+
+.dsa-diver--active .dsa-diver-svg {
+  filter:
+    drop-shadow(
+      0 0 5px var(--diver-color)
+    )
+    drop-shadow(
+      0 0 10px var(--diver-color)
+    );
+}
+
+.dsa-diver--active .dsa-diver-name {
+  background: var(--diver-color);
+
+  color: #ffffff;
+
+  box-shadow:
+    0 0 8px var(--diver-color);
+}
+
+/* ========================================
+   JUMP ANIMATION
+   ======================================== */
+
+.dsa-diver--jumping {
+  z-index: 50;
+}
+
+.dsa-diver--jumping .dsa-diver-jump {
+  animation:
+    dsa-diver-jump
+    var(--diver-jump-duration)
+    linear
+    both;
+}
+
+.dsa-diver--jumping .dsa-diver-shadow {
+  animation:
+    dsa-diver-shadow-jump
+    var(--diver-jump-duration)
+    linear
+    both;
+}
+
+.dsa-diver--jumping .dsa-diver-idle {
+  animation: none;
+}
+
+@keyframes dsa-diver-jump {
+  0% {
+    transform:
+      translateY(0)
+      scale(1, 1);
+  }
+
+  10% {
+    transform:
+      translateY(-3px)
+      scale(1.06, 0.94);
+  }
+
+  25% {
+    transform:
+      translateY(
+        calc(var(--diver-jump-height) * -0.72)
+      )
+      scale(0.96, 1.04);
+  }
+
+  50% {
+    transform:
+      translateY(
+        calc(var(--diver-jump-height) * -1)
+      )
+      scale(0.98, 1.02);
+  }
+
+  75% {
+    transform:
+      translateY(
+        calc(var(--diver-jump-height) * -0.72)
+      )
+      scale(1, 1);
+  }
+
+  90% {
+    transform:
+      translateY(-2px)
+      scale(1.05, 0.95);
+  }
+
+  100% {
+    transform:
+      translateY(0)
+      scale(1, 1);
+  }
+}
+
+@keyframes dsa-diver-shadow-jump {
+  0%,
+  100% {
+    transform:
+      translateX(-50%)
+      scale(1);
+
+    opacity: 0.8;
+  }
+
+  50% {
+    transform:
+      translateX(-50%)
+      scale(0.5);
+
+    opacity: 0.3;
+  }
+}
+
+/* ========================================
+   TURN BACK ANIMATION
+   ======================================== */
+
+.dsa-diver--turning {
+  z-index: 30;
+}
+
+.dsa-diver--turning .dsa-diver-idle {
+  animation: none;
+}
+
+.dsa-diver--turning .dsa-diver-jump {
+  animation:
+    dsa-diver-turn-hop
+    var(--diver-turn-duration)
+    ease-in-out
+    both;
+}
+
+@keyframes dsa-diver-turn-hop {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+/* ========================================
+   IDLE ANIMATION
+   ======================================== */
+
+@keyframes dsa-diver-idle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+/* ========================================
+   OXYGEN BUBBLES
+   ======================================== */
+
+.dsa-diver-bubbles {
+  position: absolute;
+
+  top: 12px;
+  right: 3px;
+
+  width: 15px;
+  height: 20px;
+
+  pointer-events: none;
+}
+
+.dsa-diver-bubbles span {
+  position: absolute;
+
+  width: 5px;
+  height: 5px;
+
+  border: 1px solid #a5f3fc;
+  border-radius: 50%;
+
+  background: rgba(165, 243, 252, 0.15);
+
+  opacity: 0;
+
+  animation:
+    dsa-diver-bubble
+    2.4s
+    linear
+    infinite;
+}
+
+.dsa-diver-bubbles span:nth-child(1) {
+  left: 0;
+  animation-delay: 0s;
+}
+
+.dsa-diver-bubbles span:nth-child(2) {
+  left: 6px;
+
+  width: 7px;
+  height: 7px;
+
+  animation-delay: 0.8s;
+}
+
+.dsa-diver-bubbles span:nth-child(3) {
+  left: 3px;
+
+  width: 4px;
+  height: 4px;
+
+  animation-delay: 1.6s;
+}
+
+@keyframes dsa-diver-bubble {
+  0% {
+    transform:
+      translate(0, 0)
+      scale(0.5);
+
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0.8;
+  }
+
+  80% {
+    opacity: 0.4;
+  }
+
+  100% {
+    transform:
+      translate(8px, -40px)
+      scale(1.4);
+
+    opacity: 0;
+  }
+}
+
+/* ========================================
+   RETURNED DIVER
+   ======================================== */
+
+.dsa-diver--returned {
+  opacity: 0.65;
+}
+
+.dsa-diver--returned .dsa-diver-bubbles {
+  display: none;
+}
+
+.dsa-diver--returned .dsa-diver-idle {
+  animation: none;
+}
+
+/* ========================================
+   MOVEMENT LAYER
+   ======================================== */
+
+.dsa-diver-layer {
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  z-index: 20;
+}
+
+.dsa-diver-position {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  will-change: transform;
+
+  transition-property: transform;
+  transition-timing-function: linear;
+}
+
+/* ========================================
+   MOBILE
+   ======================================== */
+
+@media (max-width: 600px) {
+  .dsa-diver {
+    width: 42px;
+    height: 54px;
+
+    --diver-jump-height: 24px;
+  }
+
+  .dsa-diver-svg {
+    width: 42px;
+    height: 52px;
+  }
+
+  .dsa-diver-name {
+    font-size: 9px;
+    max-width: 65px;
+  }
+
+  .dsa-diver-shadow {
+    width: 26px;
+    height: 7px;
+  }
+}
+
+/* ========================================
+   REDUCED MOTION
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .dsa-diver-idle,
+  .dsa-diver-jump,
+  .dsa-diver-shadow,
+  .dsa-diver-bubbles span {
+    animation: none !important;
+  }
+
+  .dsa-diver-facing,
+  .dsa-diver-position {
+    transition: none !important;
+  }
+}
+
+
+/* ========================================
+   VERTICAL BOARD DIVER UPDATE
+   ======================================== */
+
+.dsa-game--vertical .dsa-diver {
+  width: 52px;
+  height: 66px;
+
+  --diver-jump-height: 32px;
+
+  --diver-jump-duration: inherit;
+}
+
+.dsa-game--vertical .dsa-diver-svg {
+  width: 52px;
+  height: 63px;
+}
+
+/* The floating wrapper handles
+   underwater floating movement. */
+
+.dsa-game--vertical
+.dsa-diver-float
+.dsa-diver-idle {
+  animation: none;
+}
+
+.dsa-game--vertical
+.dsa-diver--jumping
+.dsa-diver-jump {
+  animation-duration:
+    var(--diver-jump-duration, 350ms);
+}
+
+.dsa-game--vertical .dsa-diver-name {
+  bottom: -10px;
+
+  font-size: 10px;
+
+  padding: 3px 7px;
+
+  border-radius: 5px;
+}
+
+.dsa-game--vertical
+.dsa-diver--active
+.dsa-diver-svg {
+  filter:
+    drop-shadow(
+      0 0 5px var(--diver-color)
+    )
+    drop-shadow(
+      0 0 9px var(--diver-color)
+    );
+}

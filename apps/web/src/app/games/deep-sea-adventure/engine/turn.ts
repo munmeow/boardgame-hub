@@ -59,7 +59,12 @@ export function startTurn(
 
   return {
     ...updatedState,
-    turnStage: "declare",
+    turnStage:
+      player.diver.position === 0 ||
+      player.diver.hasTurned ||
+      player.diver.direction === "inward"
+        ? "swim"
+        : "declare",
     diceResult: null,
   };
 }
@@ -76,7 +81,10 @@ export function declareDirection(
   const player = getCurrentPlayer(state);
 
   if (turnBack) {
-    if (player.diver.hasTurned) {
+    if (
+      player.diver.hasTurned ||
+      player.diver.direction === "inward"
+    ) {
       throw new Error(
         "A diver can only turn back once per round.",
       );

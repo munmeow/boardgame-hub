@@ -1,0 +1,698 @@
+
+/* ========================================
+   RESULT OVERLAY
+   ======================================== */
+
+.dsa-result-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+  box-sizing: border-box;
+
+  background: rgba(2, 8, 23, .85);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+
+  font-family: inherit;
+  color: #f1f5f9;
+
+  animation: dsa-overlay-enter 250ms ease both;
+}
+
+@keyframes dsa-overlay-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ========================================
+   RESULT MODAL
+   ======================================== */
+
+.dsa-result-modal {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  max-width: 560px;
+  max-height: calc(100dvh - 48px);
+
+  box-sizing: border-box;
+
+  padding: 28px;
+
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  border: 1px solid #67e8f930;
+  border-radius: 24px;
+
+  background:
+    radial-gradient(
+      ellipse at top,
+      #164e6335,
+      transparent 60%
+    ),
+    linear-gradient(
+      160deg,
+      #0c2538,
+      #04111f
+    );
+
+  box-shadow:
+    0 25px 80px #00000080,
+    0 0 45px #22d3ee0c;
+
+  animation:
+    dsa-result-modal-enter
+    400ms
+    cubic-bezier(.2, .8, .2, 1)
+    both;
+}
+
+@keyframes dsa-result-modal-enter {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ========================================
+   RESULT HEADER
+   ======================================== */
+
+.dsa-result-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+  gap: 10px;
+
+  margin-bottom: 26px;
+}
+
+.dsa-result-eyebrow {
+  color: #67e8f9;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.dsa-result-header h1 {
+  margin: 0;
+
+  color: #f1f5f9;
+
+  font-size: clamp(24px, 4vw, 32px);
+  font-weight: 800;
+
+  overflow-wrap: anywhere;
+}
+
+.dsa-result-subtitle {
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.dsa-result-dive-icon {
+  display: grid;
+  place-items: center;
+
+  width: 64px;
+  height: 64px;
+
+  margin: 8px 0;
+
+  border: 1px solid #67e8f940;
+  border-radius: 50%;
+
+  background: #164e6350;
+  color: #67e8f9;
+
+  font-size: 32px;
+
+  box-shadow: 0 0 24px #22d3ee15;
+}
+
+/* ========================================
+   ROUND RESULTS
+   ======================================== */
+
+.dsa-result-players {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dsa-result-player {
+  padding: 16px;
+
+  border: 1px solid #ffffff12;
+  border-left: 3px solid var(--player-color);
+  border-radius: 12px;
+
+  background: #102b40;
+}
+
+.dsa-result-player-header {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  margin-bottom: 14px;
+}
+
+.dsa-result-player-header strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-size: 15px;
+}
+
+.dsa-result-player-color {
+  display: inline-block;
+
+  width: 10px;
+  height: 10px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: var(--player-color);
+  box-shadow: 0 0 8px var(--player-color);
+}
+
+.dsa-result-player-status {
+  margin-left: auto;
+
+  flex-shrink: 0;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.dsa-result-status--safe {
+  color: #4ade80;
+}
+
+.dsa-result-status--lost {
+  color: #fb7185;
+}
+
+.dsa-result-player-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+}
+
+.dsa-result-treasures {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  flex: 1;
+  gap: 6px;
+}
+
+.dsa-result-empty {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+/* ========================================
+   TREASURE REVEAL
+   ======================================== */
+
+.dsa-result-treasure {
+  width: 42px;
+  height: 42px;
+
+  animation:
+    dsa-result-treasure-flip
+    350ms
+    cubic-bezier(.2, .8, .2, 1.2)
+    both;
+}
+
+.dsa-result-treasure svg {
+  width: 100%;
+  height: 100%;
+
+  filter: none;
+}
+
+@keyframes dsa-result-treasure-flip {
+  0% {
+    opacity: 0;
+
+    transform:
+      perspective(300px)
+      rotateY(180deg)
+      scale(.6);
+  }
+
+  50% {
+    opacity: 1;
+
+    transform:
+      perspective(300px)
+      rotateY(90deg)
+      scale(1.1);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      perspective(300px)
+      rotateY(0deg)
+      scale(1);
+  }
+}
+
+/* ========================================
+   ROUND POINTS
+   ======================================== */
+
+.dsa-result-player-points {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  flex-shrink: 0;
+  gap: 4px;
+}
+
+.dsa-result-player-points strong {
+  font-size: 26px;
+  font-weight: 800;
+  color: #facc15;
+
+  font-variant-numeric: tabular-nums;
+}
+
+.dsa-result-player-points small {
+  color: #94a3b8;
+  font-size: 11px;
+}
+
+/* ========================================
+   FINAL RESULT
+   ======================================== */
+
+.dsa-result-modal--final {
+  border-color: #facc1550;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      #eab30820,
+      transparent 55%
+    ),
+    linear-gradient(
+      160deg,
+      #0c2538,
+      #04111f
+    );
+
+  box-shadow:
+    0 25px 80px #00000080,
+    0 0 60px #eab30815;
+}
+
+.dsa-result-trophy {
+  width: 120px;
+  height: 110px;
+
+  margin: 8px 0;
+
+  filter:
+    drop-shadow(0 0 22px #facc1550);
+
+  animation:
+    dsa-trophy-enter 400ms ease-out both;
+}
+
+@keyframes dsa-trophy-enter {
+  from {
+    opacity: 0;
+    scale: .3;
+    rotate: -15deg;
+  }
+
+  to {
+    opacity: 1;
+    scale: 1;
+    rotate: 0deg;
+  }
+}
+
+@keyframes dsa-trophy-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+.dsa-result-final-label {
+  color: #facc15;
+
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.dsa-result-winning-score {
+  font-size: 56px;
+  line-height: 1.1;
+
+  font-weight: 900;
+  color: #facc15;
+
+  text-shadow: 0 0 25px #facc1535;
+}
+
+/* ========================================
+   FINAL RANKINGS
+   ======================================== */
+
+.dsa-result-rankings {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dsa-result-ranking {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 15px;
+
+  background: #102b40;
+
+  border: 1px solid #ffffff12;
+  border-radius: 12px;
+
+  animation:
+    dsa-ranking-enter 400ms ease both;
+}
+
+.dsa-result-ranking--winner {
+  border-color: #facc1550;
+
+  background:
+    linear-gradient(
+      120deg,
+      #facc1510,
+      #102b40
+    );
+}
+
+@keyframes dsa-ranking-enter {
+  from {
+    opacity: 0;
+    transform: translateX(-15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.dsa-result-rank {
+  width: 28px;
+  flex-shrink: 0;
+
+  font-size: 24px;
+  font-weight: 800;
+  text-align: center;
+
+  color: #64748b;
+}
+
+.dsa-result-rank--1 {
+  color: #facc15;
+}
+
+.dsa-result-rank--2 {
+  color: #cbd5e1;
+}
+
+.dsa-result-rank--3 {
+  color: #d6a071;
+}
+
+.dsa-result-ranking-info {
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+  min-width: 0;
+  gap: 4px;
+}
+
+.dsa-result-ranking-info strong {
+  overflow-wrap: anywhere;
+}
+
+.dsa-result-ranking-info small {
+  color: #94a3b8;
+  font-size: 11px;
+}
+
+.dsa-result-ranking-score {
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.dsa-result-ranking--winner
+.dsa-result-ranking-score {
+  color: #facc15;
+}
+
+/* ========================================
+   RESULT BUTTON
+   ======================================== */
+
+.dsa-result-footer {
+  margin-top: 24px;
+}
+
+.dsa-result-primary-button {
+  display: block;
+
+  width: 100%;
+  min-height: 48px;
+
+  padding: 12px 20px;
+
+  border: 1px solid #38bdf850;
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0284c7,
+      #0369a1
+    );
+
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 150ms,
+    filter 150ms;
+}
+
+.dsa-result-primary-button:hover {
+  filter: brightness(1.2);
+  transform: translateY(-2px);
+}
+
+.dsa-result-primary-button:active {
+  transform: scale(.98);
+}
+
+.dsa-result-primary-button:focus-visible {
+  outline: 2px solid #67e8f9;
+  outline-offset: 4px;
+}
+
+/* ========================================
+   CONFETTI
+   ======================================== */
+
+.dsa-result-confetti {
+  position: absolute;
+  inset: 0;
+
+  z-index: 1;
+
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.dsa-result-confetti span {
+  position: absolute;
+  top: -20px;
+
+  width: 7px;
+  height: 13px;
+
+  border-radius: 2px;
+
+  opacity: 0;
+
+  animation:
+    dsa-confetti-fall
+    var(--confetti-duration)
+    var(--confetti-delay)
+    linear
+    both;
+}
+
+@keyframes dsa-confetti-fall {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translate3d(
+        var(--confetti-drift),
+        105vh,
+        0
+      )
+      rotate(var(--confetti-spin));
+  }
+}
+
+/* ========================================
+   MOBILE
+   ======================================== */
+
+@media (max-width: 600px) {
+  .dsa-result-overlay {
+    padding: 12px;
+  }
+
+  .dsa-result-modal {
+    padding: 18px;
+    max-height: calc(100dvh - 24px);
+    border-radius: 18px;
+  }
+
+  .dsa-result-player {
+    padding: 12px;
+  }
+
+  .dsa-result-player-header {
+    flex-wrap: wrap;
+  }
+
+  .dsa-result-player-status {
+    font-size: 10px;
+  }
+
+  .dsa-result-treasure {
+    width: 34px;
+    height: 34px;
+  }
+
+  .dsa-result-ranking {
+    padding: 12px;
+    gap: 8px;
+  }
+
+  .dsa-result-winning-score {
+    font-size: 44px;
+  }
+}
+
+/* ========================================
+   REDUCED MOTION
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .dsa-result-overlay,
+  .dsa-result-modal,
+  .dsa-result-treasure,
+  .dsa-result-trophy,
+  .dsa-result-ranking {
+    animation: none;
+  }
+
+  .dsa-result-confetti {
+    display: none;
+  }
+}
+
+/* FINAL RANKING TREASURES */
+
+.dsa-result-ranking-treasures {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.dsa-result-ranking-treasures .dsa-result-treasure {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.dsa-result-ranking-info {
+  min-width: 0;
+}
+
+.dsa-result-ranking-score {
+  flex-shrink: 0;
+}
+
+.dsa-result-ranking {
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .dsa-result-ranking-treasures {
+    gap: 3px;
+  }
+
+  .dsa-result-ranking-treasures .dsa-result-treasure {
+    width: 26px;
+    height: 26px;
+  }
+}

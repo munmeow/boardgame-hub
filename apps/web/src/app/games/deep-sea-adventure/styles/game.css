@@ -1,24 +1,26 @@
+/* ==============================
+   GLOBAL GAME LAYOUT
+   ============================== */
 
 .dsa-game {
-  --dsa-bg: #071b2d;
-  --dsa-panel: #12354a;
-  --dsa-text: #f1f5f9;
-  --dsa-muted: #94a3b8;
-  --dsa-accent: #22d3ee;
-
   box-sizing: border-box;
+  width: 100%;
+  max-width: 1400px;
   min-height: 100vh;
-  max-width: 1200px;
   margin: 0 auto;
   padding: 24px;
 
-  color: var(--dsa-text);
-  background: var(--dsa-bg);
-  font-family: system-ui, sans-serif;
+  color: #e2e8f0;
 
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+  background: linear-gradient(160deg,
+      #103b50,
+      #071b2d 45%,
+      #030c19);
+
+  font-family:
+    Inter,
+    system-ui,
+    sans-serif;
 }
 
 .dsa-game *,
@@ -29,24 +31,79 @@
 
 .dsa-game h1,
 .dsa-game h2,
-.dsa-game h3,
-.dsa-game p {
-  margin: 0 0 8px;
+.dsa-game h3 {
+  margin: 0;
+  color: #f1f5f9;
 }
 
+.dsa-game p {
+  margin: 8px 0;
+  color: #94a3b8;
+}
+
+/* ==============================
+   HEADER
+   ============================== */
+
+.dsa-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.dsa-header h1 {
+  font-size: clamp(22px, 4vw, 34px);
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.dsa-header p {
+  color: #67e8f9;
+  font-size: 14px;
+}
+
+/* ==============================
+   BUTTONS
+   ============================== */
+
 .dsa-game button {
-  border: 1px solid #155e75;
-  border-radius: 8px;
-  background: #0e7490;
-  color: white;
-  padding: 10px 16px;
+  min-height: 40px;
+  padding: 10px 18px;
+
+  border: 1px solid #38bdf850;
+  border-radius: 10px;
+
+  background: linear-gradient(145deg,
+      #0369a1,
+      #075985);
+
+  color: #f8fafc;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+
   cursor: pointer;
-  font: inherit;
-  transition: background 150ms;
+
+  transition:
+    background 180ms,
+    transform 180ms,
+    box-shadow 180ms,
+    opacity 180ms;
 }
 
 .dsa-game button:hover:not(:disabled) {
-  background: #0891b2;
+  transform: translateY(-2px);
+
+  background: #0284c7;
+
+  box-shadow:
+    0 4px 14px #0284c740;
+}
+
+.dsa-game button:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .dsa-game button:disabled {
@@ -54,244 +111,1918 @@
   cursor: not-allowed;
 }
 
-.dsa-game input,
-.dsa-game select {
-  min-width: 0;
-  padding: 10px;
-  border: 1px solid #36566d;
-  border-radius: 8px;
-  background: #0f2940;
-  color: white;
-  font: inherit;
+.dsa-game button:focus-visible {
+  outline: 2px solid #67e8f9;
+  outline-offset: 3px;
 }
 
-.dsa-header {
+/* ==============================
+   BOARD
+   ============================== */
+
+.dsa-board-panel {
+  margin: 20px 0;
+  border: 1px solid #67e8f925;
+  border-radius: 20px;
+  overflow: hidden;
+
+  background: #061a2b;
+}
+
+.dsa-board-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
+  padding: 18px 22px;
+  border-bottom: 1px solid #ffffff10;
 }
 
-.dsa-panel,
-.dsa-lobby {
-  background: var(--dsa-panel);
-  border: 1px solid #234b61;
-  border-radius: 12px;
-  padding: 18px;
+.dsa-board-header h2 {
+  font-size: 18px;
 }
 
-.dsa-lobby {
-  max-width: 700px;
-  width: 100%;
-  margin: 40px auto;
-}
-
-.dsa-lobby-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 100px auto;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-.dsa-lobby > button {
-  margin: 6px 8px 0 0;
-}
-
-.dsa-oxygen-track {
-  height: 12px;
-  overflow: hidden;
-  border-radius: 999px;
-  background: #284b63;
-}
-
-.dsa-oxygen-fill {
-  height: 100%;
-  border-radius: inherit;
-  transition: width 300ms;
-}
-
-.dsa-board {
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(76px, 1fr)
-  );
-  gap: 10px;
-  padding: 18px;
-  border-radius: 12px;
-
-  background: linear-gradient(
-    180deg,
-    #164e63,
-    #020617
-  );
-}
-
-.dsa-tile {
-  min-height: 90px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 5px;
-  position: relative;
-  padding: 6px;
-}
-
-.dsa-tile small {
-  color: #cbd5e1;
-}
-
-.dsa-chip {
-  width: 48px;
-  height: 48px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #082f49;
-  font-weight: 700;
+.dsa-board-header p {
+  margin-bottom: 0;
   font-size: 12px;
 }
 
-.dsa-chip small {
-  color: inherit;
+.dsa-board-depth {
+  color: #67e8f9;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
 }
 
-.dsa-level-0 {
-  border: 2px dashed #64748b;
-  border-radius: 8px;
-  color: #cbd5e1;
+.dsa-board-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 10px 0;
+  scrollbar-color: #155e75 #071b2d;
 }
 
-.dsa-level-1 {
-  background: #34d399;
-  clip-path: polygon(
-    50% 0%,
-    100% 100%,
-    0% 100%
-  );
-  padding-top: 12px;
+.dsa-board-canvas {
+  position: relative;
+  margin: 0 auto;
+  isolation: isolate;
+
+  background:
+    radial-gradient(ellipse at 20% 0%,
+      #0e749030,
+      transparent 55%),
+    linear-gradient(#0b344a,
+      #08263a 40%,
+      #041323);
+
+  border-radius: 16px;
 }
 
-.dsa-level-2 {
-  background: #38bdf8;
-  border-radius: 4px;
+.dsa-board-route {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 
-.dsa-level-3 {
-  background: #a78bfa;
-  clip-path: polygon(
-    50% 0%,
-    100% 38%,
-    81% 100%,
-    19% 100%,
-    0% 38%
-  );
-}
+.dsa-board-cell {
+  position: absolute;
 
-.dsa-level-4 {
-  background: #fb923c;
-  clip-path: polygon(
-    50% 0%,
-    100% 25%,
-    100% 75%,
-    50% 100%,
-    0% 75%,
-    0% 25%
-  );
-}
+  width: 72px;
+  height: 72px;
 
-.dsa-submarine {
-  background: #ffffff0d;
-  border-radius: 8px;
-}
-
-.dsa-submarine > span {
-  font-size: 30px;
-}
-
-.dsa-divers {
-  min-height: 22px;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 3px;
-}
-
-.dsa-diver {
-  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 21px;
-  height: 21px;
-  border: 1px solid white;
+
+  transform: translate(-50%, -50%);
+
   border-radius: 50%;
+
+  background: #06182780;
+
+  border: 1px solid #67e8f918;
+}
+
+.dsa-tile-index {
+  position: absolute;
+  bottom: -17px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  color: #7dd3fc90;
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ==============================
+   SUBMARINE
+   ============================== */
+
+.dsa-board-submarine {
+  width: 94px;
+  background: transparent;
+  border: none;
+}
+
+.dsa-submarine-svg {
+  width: 94px;
+  height: 72px;
+  overflow: visible;
+
+  filter:
+    drop-shadow(0 5px 5px #00000050);
+}
+
+/* ==============================
+   TREASURE CHIPS
+   ============================== */
+
+.dsa-treasure-chip {
+  position: relative;
+  width: 56px;
+  height: 56px;
+}
+
+.dsa-treasure-chip svg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  filter:
+    drop-shadow(0 4px 2px #00000070);
+}
+
+.dsa-level-4 svg {
+  filter:
+    drop-shadow(0 0 6px #a78bfa60) drop-shadow(0 4px 2px #00000070);
+}
+
+.dsa-chip-stack {
+  position: absolute;
+  inset: 5px;
+
+  transform: translateY(5px);
+
+  border: 2px solid #ffffff30;
+  border-radius: 12px;
+  background: #64748b;
+}
+
+.dsa-stack-count {
+  position: absolute;
+  right: -7px;
+  bottom: -3px;
+
+  min-width: 23px;
+  padding: 3px 5px;
+
+  border-radius: 6px;
+  background: #172554;
+  border: 1px solid #93c5fd70;
+
   color: white;
   font-size: 11px;
   font-weight: 700;
 }
 
-.dsa-players {
+.dsa-chip-blank {
+  width: 50px;
+  height: 50px;
+
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(150px, 1fr)
-  );
-  gap: 12px;
+  place-items: center;
+
+  border-radius: 50%;
+  border: 2px dashed #64748b60;
+
+  background: #64748b15;
 }
 
-.dsa-active-player {
-  outline: 2px solid var(--dsa-accent);
+.dsa-chip-blank span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #64748b60;
+}
+
+/* ==============================
+   DIVER OVERRIDES
+   ============================== */
+
+.dsa-diver-position .dsa-diver {
+  --diver-jump-duration: inherit;
+}
+
+.dsa-board-canvas .dsa-diver {
+  width: 52px;
+  height: 66px;
+}
+
+.dsa-board-canvas .dsa-diver-svg {
+  width: 52px;
+  height: 63px;
+}
+
+/* ==============================
+   LEGEND
+   ============================== */
+
+.dsa-board-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+
+  padding: 16px;
+
+  border-top: 1px solid #ffffff10;
+
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.dsa-board-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dsa-board-legend i {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.dsa-legend-level-1 {
+  background: #d6b78a;
+}
+
+.dsa-legend-level-2 {
+  background: #94a3b8;
+}
+
+.dsa-legend-level-3 {
+  background: #60a5fa;
+}
+
+.dsa-legend-level-4 {
+  background: #a78bfa;
+}
+
+.dsa-legend-blank {
+  border: 1px dashed #94a3b8;
+}
+
+/* ==============================
+   PANELS
+   ============================== */
+
+.dsa-panel,
+.dsa-action-panel,
+.dsa-player-panel,
+.dsa-scoreboard,
+.dsa-lobby {
+  padding: 20px;
+  margin: 16px 0;
+
+  background: #0c2538;
+  border: 1px solid #ffffff15;
+  border-radius: 16px;
+}
+
+.dsa-panel h2 {
+  font-size: 18px;
+  margin-bottom: 12px;
 }
 
 .dsa-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  margin-top: 12px;
 }
 
-.dsa-score-table {
+.dsa-action-panel {
+  display: flex;
+  justify-content: center;
+}
+
+/* ==============================
+   PLAYER INFORMATION
+   ============================== */
+
+.dsa-players,
+.dsa-player-grid,
+.dsa-player-list {
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(190px, 1fr));
+
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.dsa-player,
+.dsa-player-card {
+  padding: 15px;
+  background: #0b2235;
+  border: 1px solid #ffffff15;
+  border-radius: 12px;
+}
+
+.dsa-player.active,
+.dsa-player-card.active,
+.dsa-player-active,
+.dsa-player-card--active {
+  border-color: #38bdf8;
+  background: #0e749020;
+
+  box-shadow:
+    0 0 14px #38bdf820;
+}
+
+.dsa-player-returned {
+  opacity: 0.65;
+}
+
+/* ==============================
+   OXYGEN
+   ============================== */
+
+.dsa-oxygen,
+.dsa-oxygen-meter {
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid #ffffff15;
+  background: #0b2235;
+}
+
+.dsa-oxygen-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.dsa-oxygen-bar,
+.dsa-oxygen-track {
+  height: 16px;
+  overflow: hidden;
+
+  border-radius: 20px;
+  background: #020617;
+}
+
+.dsa-oxygen-fill {
+  height: 100%;
+  border-radius: inherit;
+
+  transition:
+    width 450ms ease,
+    background 300ms ease;
+}
+
+/* ==============================
+   LOBBY
+   ============================== */
+
+.dsa-lobby {
+  max-width: 640px;
+  margin: 30px auto;
+}
+
+.dsa-lobby h1,
+.dsa-lobby h2 {
+  margin-bottom: 20px;
+}
+
+.dsa-lobby-row,
+.dsa-lobby-player {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.dsa-game input,
+.dsa-game select {
+  min-height: 40px;
+  padding: 10px 12px;
+
+  color: #e2e8f0;
+  background: #071827;
+
+  border: 1px solid #ffffff25;
+  border-radius: 8px;
+
+  font: inherit;
+}
+
+.dsa-game input {
+  flex: 1;
+  min-width: 100px;
+}
+
+/* ==============================
+   SCOREBOARD
+   ============================== */
+
+.dsa-scoreboard table,
+.dsa-game table {
   width: 100%;
   border-collapse: collapse;
   margin: 16px 0;
 }
 
-.dsa-score-table th,
-.dsa-score-table td {
+.dsa-game th,
+.dsa-game td {
   padding: 12px;
   text-align: left;
-  border-bottom: 1px solid #36566d;
+  border-bottom: 1px solid #ffffff15;
 }
+
+.dsa-game th {
+  color: #7dd3fc;
+  font-size: 12px;
+}
+
+/* ==============================
+   WARNINGS AND ERRORS
+   ============================== */
 
 .dsa-warning,
 .dsa-error {
-  padding: 12px;
-  border-radius: 8px;
-  background: #7f1d1d;
-  color: #fecaca;
+  padding: 14px;
+  margin: 12px 0;
+  border-radius: 10px;
 }
+
+.dsa-warning {
+  color: #fcd34d !important;
+  background: #92400e30;
+  border: 1px solid #f59e0b50;
+}
+
+.dsa-error {
+  color: #fda4af !important;
+  background: #9f123930;
+  border: 1px solid #fb718550;
+}
+
+.dsa-animation-status {
+  text-align: center;
+  padding: 14px;
+  margin: 12px 0;
+  border-radius: 12px;
+
+  background: #0e749020;
+  border: 1px solid #38bdf830;
+
+  color: #bae6fd;
+  font-weight: 600;
+}
+
+/* ==============================
+   RESPONSIVE
+   ============================== */
 
 @media (max-width: 600px) {
   .dsa-game {
     padding: 12px;
   }
 
-  .dsa-lobby-row {
-    grid-template-columns: minmax(0, 1fr) 85px;
+  .dsa-header {
+    align-items: flex-start;
   }
 
-  .dsa-lobby-row button {
-    grid-column: 1 / -1;
+  .dsa-header button {
+    padding: 8px 12px;
+    font-size: 12px;
   }
 
-  .dsa-board {
-    grid-template-columns: repeat(
-      auto-fill,
-      minmax(58px, 1fr)
-    );
+  .dsa-board-header {
+    padding: 14px;
+  }
+
+  .dsa-board-depth {
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+
+  .dsa-panel,
+  .dsa-action-panel,
+  .dsa-lobby {
+    padding: 14px;
+  }
+
+  .dsa-actions button {
+    flex: 1;
+  }
+
+  .dsa-player-grid,
+  .dsa-players,
+  .dsa-player-list {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .dsa-game button,
+  .dsa-oxygen-fill {
+    transition: none;
+  }
+}
+
+/* ========================================
+   VERTICAL OCEAN BOARD UPDATE
+   ======================================== */
+
+.dsa-game--vertical {
+  max-width: 1800px;
+  min-height: 100vh;
+
+  padding: 20px 24px;
+
+  background:
+    radial-gradient(ellipse at top left,
+      #103b50,
+      transparent 60%),
+    #04111f;
+}
+
+/* ========================================
+   TWO COLUMN LAYOUT
+   ======================================== */
+
+.dsa-game-layout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr) 340px;
+
+  align-items: start;
+
+  gap: 20px;
+}
+
+.dsa-main-board {
+  min-width: 0;
+}
+
+.dsa-sidebar {
+  position: sticky;
+
+  top: 16px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 14px;
+
+  max-height: calc(100vh - 32px);
+
+  overflow-y: auto;
+
+  padding-right: 4px;
+
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    #155e75 transparent;
+}
+
+.dsa-sidebar>* {
+  flex-shrink: 0;
+}
+
+/* ========================================
+   OCEAN BOARD
+   ======================================== */
+
+.dsa-game--vertical .dsa-board-panel {
+  margin: 0;
+
+  border-radius: 20px;
+
+  border: 1px solid #67e8f930;
+
+  background: #061a2b;
+
+  box-shadow:
+    0 12px 40px #00000035;
+}
+
+.dsa-game--vertical .dsa-board-scroll {
+  position: relative;
+
+  padding: 0;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.dsa-game--vertical .dsa-board-canvas {
+  position: relative;
+
+  margin: 0 auto;
+
+  isolation: isolate;
+
+  overflow: hidden;
+
+  border-radius: 18px;
+
+  background:
+    radial-gradient(ellipse at 20% 0%,
+      #67e8f925,
+      transparent 40%),
+    linear-gradient(180deg,
+      #176c89 0%,
+      #10506b 18%,
+      #0b354e 40%,
+      #07243b 65%,
+      #041629 85%,
+      #020817 100%);
+}
+
+/* ========================================
+   WATER SURFACE
+   ======================================== */
+
+.dsa-water-surface {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 32px;
+
+  z-index: 1;
+
+  background: linear-gradient(180deg,
+      #a5f3fc45,
+      #67e8f915,
+      transparent);
+
+  border-top: 3px solid #a5f3fc60;
+
+  pointer-events: none;
+}
+
+/* ========================================
+   UNDERWATER LIGHT RAYS
+   ======================================== */
+
+.dsa-ocean-rays {
+  position: absolute;
+
+  inset: 0;
+
+  overflow: hidden;
+
+  pointer-events: none;
+
+  z-index: 0;
+}
+
+.dsa-ocean-rays::before,
+.dsa-ocean-rays::after {
+  content: "";
+
+  position: absolute;
+
+  top: -80px;
+
+  width: 100px;
+  height: 65%;
+
+  background: linear-gradient(180deg,
+      #cffafe20,
+      #67e8f905,
+      transparent);
+
+  filter: blur(10px);
+
+  transform-origin: top center;
+
+  animation:
+    dsa-light-ray 12s ease-in-out infinite alternate;
+}
+
+.dsa-ocean-rays::before {
+  left: 20%;
+
+  transform: rotate(-22deg);
+}
+
+.dsa-ocean-rays::after {
+  left: 65%;
+
+  width: 140px;
+
+  transform: rotate(18deg);
+
+  animation-delay: -6s;
+}
+
+@keyframes dsa-light-ray {
+  from {
+    opacity: 0.3;
+  }
+
+  to {
+    opacity: 0.8;
+  }
+}
+
+/* ========================================
+   OCEAN PARTICLES
+   ======================================== */
+
+.dsa-ocean-particles {
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  z-index: 1;
+}
+
+.dsa-ocean-particles span {
+  position: absolute;
+
+  border-radius: 50%;
+
+  background: #cffafe30;
+
+  border: 1px solid #a5f3fc20;
+
+  animation-name:
+    dsa-ocean-particle-rise;
+
+  animation-timing-function: linear;
+
+  animation-iteration-count: infinite;
+}
+
+@keyframes dsa-ocean-particle-rise {
+  0% {
+    transform: translate(0, 25px);
+
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0.6;
+  }
+
+  80% {
+    opacity: 0.3;
+  }
+
+  100% {
+    transform: translate(15px, -70px);
+
+    opacity: 0;
+  }
+}
+
+/* ========================================
+   BOARD ROUTE
+   ======================================== */
+
+.dsa-game--vertical .dsa-board-route {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 2;
+
+  pointer-events: none;
+}
+
+/* ========================================
+   TREASURE CELL
+   ======================================== */
+
+.dsa-game--vertical .dsa-board-cell {
+  position: absolute;
+
+  width: 76px;
+  height: 76px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transform: translate(-50%, -50%);
+
+  background: transparent;
+
+  border: none;
+
+  z-index: 3;
+}
+
+.dsa-float-motion {
+  position: relative;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  animation-name: dsa-treasure-float;
+
+  animation-duration:
+    var(--float-duration, 4500ms);
+
+  animation-delay:
+    var(--float-delay, 0ms);
+
+  animation-timing-function: ease-in-out;
+
+  animation-iteration-count: infinite;
+
+  will-change: transform;
+}
+
+/* Random initial rotation */
+.dsa-treasure-rotation {
+  transform:
+    rotate(var(--treasure-rotation, 0deg));
+}
+
+@keyframes dsa-treasure-float {
+
+  0%,
+  100% {
+    transform:
+      translate3d(calc(var(--float-x, 2px) * -1),
+        calc(var(--float-y, 4px) * -1),
+        0);
+  }
+
+  25% {
+    transform:
+      translate3d(var(--float-x, 2px),
+        0,
+        0);
+  }
+
+  50% {
+    transform:
+      translate3d(var(--float-x, 2px),
+        var(--float-y, 4px),
+        0);
+  }
+
+  75% {
+    transform:
+      translate3d(calc(var(--float-x, 2px) * -1),
+        0,
+        0);
+  }
+}
+
+/* ========================================
+   TREASURE APPEARANCE
+   ======================================== */
+
+.dsa-game--vertical .dsa-treasure-chip {
+  position: relative;
+
+  width: 65px;
+  height: 65px;
+
+  filter:
+    drop-shadow(0 7px 4px #00000040);
+}
+
+.dsa-game--vertical .dsa-treasure-chip svg {
+  width: 100%;
+  height: 100%;
+
+  overflow: visible;
+}
+
+.dsa-game--vertical .dsa-level-1 {
+  filter:
+    drop-shadow(0 0 5px #d6b78a25) drop-shadow(0 7px 4px #00000040);
+}
+
+.dsa-game--vertical .dsa-level-2 {
+  filter:
+    drop-shadow(0 0 5px #cbd5e125) drop-shadow(0 7px 4px #00000040);
+}
+
+.dsa-game--vertical .dsa-level-3 {
+  filter:
+    drop-shadow(0 0 7px #60a5fa35) drop-shadow(0 7px 4px #00000040);
+}
+
+.dsa-game--vertical .dsa-level-4 {
+  filter:
+    drop-shadow(0 0 10px #a78bfa45) drop-shadow(0 7px 4px #00000040);
+}
+
+.dsa-game--vertical .dsa-stack-count {
+  position: absolute;
+
+  right: -5px;
+  bottom: 0;
+
+  padding: 3px 6px;
+
+  border-radius: 6px;
+
+  color: #ffffff;
+
+  background: #172554;
+
+  border: 1px solid #93c5fd70;
+
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.dsa-game--vertical .dsa-chip-blank {
+  width: 42px;
+  height: 42px;
+
+  border: 1px dashed #94a3b850;
+
+  background: #94a3b808;
+
+  border-radius: 50%;
+}
+
+.dsa-game--vertical .dsa-tile-index {
+  position: absolute;
+
+  bottom: -8px;
+
+  color: #bae6fd70;
+
+  font-size: 10px;
+  font-weight: 500;
+}
+
+/* ========================================
+   LARGE SUBMARINE
+   ======================================== */
+
+.dsa-game--vertical .dsa-board-submarine {
+  width: 230px;
+  height: 130px;
+
+  background: transparent;
+
+  border: none;
+
+  z-index: 4;
+}
+
+.dsa-game--vertical .dsa-submarine-svg {
+  width: 230px;
+  height: 130px;
+
+  overflow: visible;
+
+  filter:
+    drop-shadow(0 12px 10px #00000045);
+}
+
+/* ========================================
+   DIVER FLOATING SYNCHRONIZATION
+   ======================================== */
+
+.dsa-diver-float {
+  animation-name:
+    dsa-treasure-float;
+
+  animation-duration:
+    var(--float-duration, 4500ms);
+
+  animation-delay:
+    var(--float-delay, 0ms);
+
+  animation-timing-function:
+    ease-in-out;
+
+  animation-iteration-count:
+    infinite;
+
+  will-change: transform;
+}
+
+.dsa-diver-float--jumping {
+  animation: none;
+}
+
+.dsa-game--vertical .dsa-diver-layer {
+  z-index: 20;
+}
+
+.dsa-game--vertical .dsa-diver-position {
+  pointer-events: none;
+
+  transition-property: transform;
+
+  transition-timing-function: linear;
+}
+
+/* ========================================
+   OCEAN FLOOR
+   ======================================== */
+
+.dsa-ocean-floor {
+  position: absolute;
+
+  bottom: -25px;
+  left: -5%;
+
+  width: 110%;
+  height: 60px;
+
+  border-radius: 50% 50% 0 0;
+
+  background: #020817;
+
+  pointer-events: none;
+
+  opacity: 0.75;
+
+  z-index: 1;
+}
+
+/* ========================================
+   SIDEBAR CONTROL CARD
+   ======================================== */
+
+.dsa-control-card {
+  padding: 16px;
+
+  border-radius: 16px;
+
+  background: #0c2538;
+
+  border: 1px solid #ffffff15;
+
+  box-shadow:
+    0 8px 20px #00000020;
+}
+
+.dsa-current-turn {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding-bottom: 14px;
+
+  border-bottom: 1px solid #ffffff12;
+}
+
+.dsa-turn-indicator {
+  width: 10px;
+  height: 10px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #4ade80;
+
+  box-shadow:
+    0 0 12px #4ade8080;
+
+  animation:
+    dsa-turn-pulse 2s ease-in-out infinite;
+}
+
+@keyframes dsa-turn-pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.45;
+  }
+}
+
+.dsa-turn-label {
+  display: block;
+
+  margin-bottom: 4px;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+
+  color: #94a3b8;
+}
+
+.dsa-current-turn h2 {
+  font-size: 20px;
+}
+
+/* ========================================
+   ACTION BUTTONS
+   ======================================== */
+
+.dsa-control-card .dsa-panel,
+.dsa-control-card .dsa-action-panel {
+  margin: 12px 0 0;
+
+  padding: 0;
+
+  background: transparent;
+
+  border: none;
+
+  border-radius: 0;
+}
+
+.dsa-control-card .dsa-panel>h2 {
+  display: none;
+}
+
+.dsa-control-card .dsa-actions {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 8px;
+}
+
+.dsa-control-card button {
+  min-height: 44px;
+
+  width: 100%;
+
+  padding: 12px 8px;
+
+  border-radius: 9px;
+}
+
+.dsa-control-card .dsa-actions button:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+/* ========================================
+   PLAYER SIDEBAR
+   ======================================== */
+
+.dsa-sidebar-players .dsa-panel,
+.dsa-sidebar-players .dsa-player-panel {
+  margin: 0;
+
+  padding: 14px;
+}
+
+.dsa-sidebar-players .dsa-players,
+.dsa-sidebar-players .dsa-player-grid,
+.dsa-sidebar-players .dsa-player-list {
+  display: grid;
+
+  grid-template-columns: 1fr;
+
+  gap: 8px;
+
+  margin: 10px 0 0;
+}
+
+.dsa-sidebar-players .dsa-player,
+.dsa-sidebar-players .dsa-player-card {
+  padding: 12px;
+
+  border-radius: 10px;
+}
+
+.dsa-sidebar-players p {
+  margin: 5px 0;
+
+  font-size: 13px;
+}
+
+/* ========================================
+   SIDEBAR SPACING
+   ======================================== */
+
+.dsa-sidebar .dsa-oxygen,
+.dsa-sidebar .dsa-oxygen-meter,
+.dsa-sidebar .dsa-scoreboard,
+.dsa-sidebar .dsa-warning,
+.dsa-sidebar .dsa-error {
+  margin: 0;
+}
+
+.dsa-sidebar .dsa-scoreboard {
+  overflow-x: auto;
+}
+
+/* ========================================
+   ANIMATION STATUS
+   ======================================== */
+
+.dsa-control-card .dsa-animation-status {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  min-height: 44px;
+
+  margin: 12px 0 0;
+
+  padding: 12px;
+
+  font-size: 13px;
+}
+
+.dsa-loading-dot {
+  width: 14px;
+  height: 14px;
+
+  border: 2px solid #67e8f930;
+
+  border-top-color: #67e8f9;
+
+  border-radius: 50%;
+
+  animation:
+    dsa-loading-spin 700ms linear infinite;
+}
+
+@keyframes dsa-loading-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ========================================
+   RESPONSIVE LAYOUT
+   ======================================== */
+
+@media (min-width: 1500px) {
+  .dsa-game-layout {
+    grid-template-columns:
+      minmax(0, 1fr) 380px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .dsa-game-layout {
+    grid-template-columns:
+      minmax(0, 1fr) 300px;
+
+    gap: 12px;
+  }
+
+  .dsa-game--vertical {
+    padding: 14px;
+  }
+}
+
+@media (max-width: 800px) {
+  .dsa-game-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .dsa-sidebar {
+    position: static;
+
+    max-height: none;
+
+    overflow: visible;
+
+    padding: 0;
+  }
+
+  .dsa-game--vertical {
     padding: 10px;
-    gap: 5px;
   }
+
+  .dsa-control-card {
+    padding: 14px;
+  }
+}
+
+/* ========================================
+   REDUCED MOTION
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .dsa-float-motion,
+  .dsa-diver-float,
+  .dsa-ocean-particles span,
+  .dsa-ocean-rays::before,
+  .dsa-ocean-rays::after,
+  .dsa-turn-indicator,
+  .dsa-loading-dot {
+    animation: none !important;
+  }
+}
+
+
+/* ========================================
+   PLAYER TABLE LAYOUT
+   ======================================== */
+
+.dsa-table-layout {
+  display: grid;
+
+  grid-template-columns:
+    136px
+    minmax(0, 1fr)
+    136px;
+
+  align-items: start;
+
+  gap: 10px;
+
+  width: 100%;
+}
+
+.dsa-table-center {
+  min-width: 0;
+}
+
+/* Hide treasure position numbers */
+
+.dsa-game--vertical .dsa-tile-index {
+  display: none;
+}
+
+/* ========================================
+   PLAYER COLUMNS
+   ======================================== */
+
+.dsa-player-column {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+
+  min-width: 0;
+}
+
+.dsa-player-column--left,
+.dsa-player-column--right {
+  padding-top: 12px;
+}
+
+/* ========================================
+   COMPACT PLAYER CARD
+   ======================================== */
+
+.dsa-compact-player {
+  position: relative;
+
+  padding: 12px 10px;
+
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #102b40,
+      #071827
+    );
+
+  border: 1px solid #ffffff18;
+
+  box-shadow:
+    0 6px 16px #00000025;
+
+  transition:
+    border-color 200ms,
+    box-shadow 200ms;
+}
+
+.dsa-compact-player--active {
+  border-color: var(--player-color);
+
+  box-shadow:
+    0 0 0 1px var(--player-color),
+    0 0 18px
+      color-mix(
+        in srgb,
+        var(--player-color) 20%,
+        transparent
+      );
+}
+
+/* ========================================
+   PLAYER NAME
+   ======================================== */
+
+.dsa-compact-player-header {
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  min-width: 0;
+
+  margin-bottom: 14px;
+}
+
+.dsa-player-color {
+  width: 9px;
+  height: 9px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: var(--player-color);
+
+  box-shadow:
+    0 0 8px var(--player-color);
+}
+
+.dsa-compact-player-name {
+  min-width: 0;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  color: #f1f5f9;
+}
+
+/* ========================================
+   CARGO AND SCORE
+   ======================================== */
+
+.dsa-compact-player-stats {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 6px;
+}
+
+.dsa-compact-stat {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 4px;
+
+  padding: 8px 2px;
+
+  border-radius: 7px;
+
+  background: #02061750;
+}
+
+.dsa-compact-stat span {
+  color: #94a3b8;
+
+  font-size: 10px;
+
+  font-weight: 600;
+}
+
+.dsa-compact-stat strong {
+  color: #f1f5f9;
+
+  font-size: 22px;
+
+  font-weight: 800;
+
+  font-variant-numeric: tabular-nums;
+}
+
+.dsa-compact-score strong {
+  color: #facc15;
+}
+
+/* ========================================
+   COLLECTED TREASURES
+   ======================================== */
+
+.dsa-collected-treasures {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 5px;
+
+  padding-top: 10px;
+
+  margin-top: 12px;
+
+  border-top: 1px solid #ffffff15;
+}
+
+.dsa-collected-treasure {
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  aspect-ratio: 1;
+
+  min-width: 0;
+
+  animation:
+    dsa-treasure-reveal
+    450ms
+    cubic-bezier(.2, .8, .2, 1.2)
+    both;
+}
+
+.dsa-collected-treasure svg {
+  width: 100%;
+  height: 100%;
+
+  overflow: visible;
+
+  filter:
+    drop-shadow(
+      0 3px 3px #00000040
+    );
+}
+
+.dsa-collected-treasure:nth-child(2) {
+  animation-delay: 80ms;
+}
+
+.dsa-collected-treasure:nth-child(3) {
+  animation-delay: 160ms;
+}
+
+.dsa-collected-treasure:nth-child(4) {
+  animation-delay: 240ms;
+}
+
+@keyframes dsa-treasure-reveal {
+  0% {
+    opacity: 0;
+
+    transform:
+      scale(.2)
+      rotateY(90deg);
+  }
+
+  70% {
+    opacity: 1;
+
+    transform:
+      scale(1.15)
+      rotateY(0deg);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      scale(1)
+      rotateY(0deg);
+  }
+}
+
+/* ========================================
+   DESKTOP WIDTH
+   ======================================== */
+
+.dsa-game--vertical {
+  width: 100%;
+
+  max-width: 1920px;
+
+  box-sizing: border-box;
+}
+
+@media (min-width: 1600px) {
+  .dsa-table-layout {
+    grid-template-columns:
+      150px
+      minmax(0, 1fr)
+      150px;
+  }
+}
+
+@media (max-width: 1400px) {
+  .dsa-table-layout {
+    grid-template-columns:
+      116px
+      minmax(0, 1fr)
+      116px;
+
+    gap: 8px;
+  }
+
+  .dsa-compact-player {
+    padding: 10px 7px;
+  }
+
+  .dsa-game--vertical .dsa-game-layout {
+    grid-template-columns:
+      minmax(0, 1fr)
+      280px;
+  }
+}
+
+/* ========================================
+   SMALL SCREEN LAYOUT
+   ======================================== */
+
+@media (max-width: 1200px) {
+  .dsa-table-layout {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .dsa-table-center {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .dsa-player-column--left,
+  .dsa-player-column--right {
+    grid-row: 1;
+
+    padding-top: 0;
+
+    display: grid;
+
+    grid-template-columns:
+      repeat(
+        auto-fit,
+        minmax(100px, 1fr)
+      );
+  }
+}
+
+@media (max-width: 800px) {
+  .dsa-game--vertical .dsa-game-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .dsa-collected-treasures {
+    grid-template-columns:
+      repeat(
+        auto-fill,
+        minmax(24px, 1fr)
+      );
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dsa-collected-treasure {
+    animation: none;
+  }
+}
+
+.dsa-game--vertical .dsa-sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-self: start;
+  gap: 14px;
+}
+
+.dsa-game--vertical .dsa-sidebar > * {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+/* TURN BACK BUTTON */
+
+.dsa-game button.dsa-button-turn-back {
+  background: #facc15;
+  border: 1px solid #eab308;
+  color: #422006;
+  font-weight: 700;
+
+  transition:
+    background 150ms ease,
+    box-shadow 150ms ease,
+    transform 150ms ease;
+}
+
+.dsa-game button.dsa-button-turn-back:hover:not(:disabled) {
+  background: #fde047;
+  box-shadow: 0 0 15px #facc1540;
+}
+
+.dsa-game button.dsa-button-turn-back:active:not(:disabled) {
+  background: #eab308;
+  transform: scale(.97);
+}
+
+.dsa-game button.dsa-button-turn-back:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+/* TREASURE ACTION BUTTONS */
+
+.dsa-game .dsa-treasure-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.dsa-game .dsa-treasure-actions > .dsa-button-pick-up {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.dsa-game .dsa-treasure-actions > .dsa-button-skip {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.dsa-game .dsa-treasure-actions > .dsa-button-drop {
+  grid-column: auto;
+  grid-row: auto;
+}
+
+/* DROP TREASURE BUTTONS */
+
+.dsa-game button.dsa-button-drop {
+  background: #facc15;
+  border: 1px solid #eab308;
+  color: #422006;
+  font-weight: 700;
+
+  transition:
+    background 150ms ease,
+    box-shadow 150ms ease,
+    transform 150ms ease;
+}
+
+.dsa-game button.dsa-button-drop:hover:not(:disabled) {
+  background: #fde047;
+  box-shadow: 0 0 15px #facc1540;
+}
+
+.dsa-game button.dsa-button-drop:active:not(:disabled) {
+  background: #eab308;
+  transform: scale(.97);
+}
+
+.dsa-game button.dsa-button-drop:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+/* DROP TREASURE ICONS */
+
+.dsa-game button.dsa-button-drop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.dsa-drop-label {
+  white-space: nowrap;
+}
+
+.dsa-drop-treasure-icons {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.dsa-drop-treasure-icon {
+  display: block;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+
+  filter: drop-shadow(0 1px 1px #00000025);
+}
+
+/* Pause background animations during score summary */
+
+.dsa-summary-active .dsa-game-layout *,
+.dsa-summary-active .dsa-game-layout *::before,
+.dsa-summary-active .dsa-game-layout *::after {
+  animation-play-state: paused !important;
+  transition: none !important;
+}
+
+/* Compact board and controls */
+.dsa-game--vertical { padding: 10px 14px; min-height: 100dvh; }
+.dsa-game--vertical .dsa-header { margin-bottom: 10px; gap: 10px; }
+.dsa-game--vertical .dsa-header h1 { font-size: clamp(22px, 2.4vw, 28px); }
+.dsa-game--vertical .dsa-header p { margin: 3px 0 0; }
+.dsa-game--vertical .dsa-game-layout { gap: 10px; grid-template-columns: minmax(0, 1fr) 290px; }
+.dsa-game--vertical .dsa-table-layout { gap: 8px; }
+.dsa-game--vertical .dsa-sidebar { gap: 8px; top: 8px; max-height: none; overflow: visible; padding: 0; }
+.dsa-game--vertical .dsa-control-card { padding: 10px; }
+.dsa-game--vertical .dsa-current-turn { padding-bottom: 8px; gap: 8px; }
+.dsa-game--vertical .dsa-current-turn h2 { font-size: 17px; overflow-wrap: anywhere; }
+.dsa-game--vertical .dsa-control-card button { min-height: 36px; padding: 7px 6px; font-size: 13px; }
+.dsa-game--vertical .dsa-control-card .dsa-panel { margin-top: 8px; }
+.dsa-game--vertical .dsa-control-card .dsa-actions { margin-top: 6px; gap: 6px; }
+.dsa-game--vertical .dsa-oxygen, .dsa-game--vertical .dsa-oxygen-meter { padding: 10px; }
+.dsa-game--vertical .dsa-oxygen-header { margin-bottom: 6px; }
+.dsa-game--vertical .dsa-oxygen-track, .dsa-game--vertical .dsa-oxygen-bar { height: 12px; }
+.dsa-game--vertical .dsa-board-fit { position: relative; margin: 0 auto; overflow: hidden; }
+.dsa-game--vertical .dsa-board-fit .dsa-board-canvas { margin: 0; position: absolute; left: 0; top: 0; }
+.dsa-game--vertical .dsa-board-cell { width: 60px; height: 60px; }
+.dsa-game--vertical .dsa-treasure-chip { width: 53px; height: 53px; }
+.dsa-game--vertical .dsa-chip-blank { width: 34px; height: 34px; }
+.dsa-game--vertical .dsa-board-submarine, .dsa-game--vertical .dsa-submarine-svg { width: 190px; height: 103px; }
+.dsa-game--vertical .dsa-board-canvas .dsa-diver { width: 42px; height: 54px; }
+.dsa-game--vertical .dsa-board-canvas .dsa-diver-svg { width: 42px; height: 51px; }
+.dsa-game--vertical .dsa-player-column { gap: 7px; padding-top: 0; }
+.dsa-game--vertical .dsa-compact-player { padding: 7px; }
+.dsa-game--vertical .dsa-compact-player-header { margin-bottom: 6px; }
+.dsa-game--vertical .dsa-compact-stat { padding: 4px 2px; gap: 1px; }
+.dsa-game--vertical .dsa-compact-stat strong { font-size: 18px; }
+.dsa-game--vertical .dsa-collected-treasures { grid-template-columns: repeat(auto-fill, minmax(20px, 1fr)); gap: 2px; margin-top: 6px; padding-top: 5px; max-height: 76px; overflow-y: auto; }
+.dsa-game--vertical .dsa-collected-treasure { max-width: 28px; animation-duration: 250ms; }
+.dsa-cargo-treasures { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 6px; max-height: 75px; overflow-y: auto; }
+.dsa-cargo-bundle { display: inline-flex; align-items: center; gap: 1px; padding: 2px; border: 1px solid #ffffff25; border-radius: 5px; background: #02061760; }
+.dsa-cargo-bundle svg { width: 19px; height: 19px; display: block; }
+.dsa-game--vertical .dsa-dice-container { padding: 8px; margin: 8px 0 0; gap: 6px; }
+.dsa-game--vertical .dsa-dice-pair { gap: 10px; margin: 6px 0; }
+.dsa-game--vertical .dsa-dice-face { width: 52px; height: 52px; padding: 7px; }
+.dsa-game--vertical .dsa-dice-stats { gap: 4px; margin: 5px 0; }
+.dsa-game--vertical .dsa-dice-stat { padding: 4px; }
+.dsa-game--vertical .dsa-dice-stat span { font-size: 10px; }
+.dsa-game--vertical .dsa-dice-stat strong { font-size: 16px; }
+.dsa-hold-roll { display: grid; gap: 5px; }
+.dsa-roll-power-label { display: flex; justify-content: space-between; font-size: 11px; color: #94a3b8; }
+.dsa-roll-power { height: 7px; border-radius: 5px; background: #020617; overflow: hidden; }
+.dsa-roll-power > span { display: block; width: 100%; height: 100%; transform-origin: left; background: linear-gradient(90deg,#22d3ee,#facc15,#fb7185); }
+.dsa-game button.dsa-hold-button { touch-action: none; user-select: none; -webkit-user-select: none; }
+.dsa-game button.dsa-hold-button--charging { background: #a16207; transform: none; }
+.dsa-game .dsa-dice-progress > .dsa-roll-progress { width: 100%; transform-origin: left; animation: dsa-roll-fill var(--roll-duration, 900ms) linear both; }
+@keyframes dsa-roll-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.dsa-summary-active .dsa-game-layout * { will-change: auto !important; }
+@media (min-width: 1001px) {
+  .dsa-game--vertical .dsa-table-layout { grid-template-columns: 108px minmax(0,1fr) 108px; }
+  .dsa-game--vertical .dsa-table-center { grid-column: auto; grid-row: auto; }
+  .dsa-game--vertical .dsa-player-column { display: flex; grid-row: auto; }
+}
+@media (min-width: 1500px) { .dsa-game--vertical .dsa-table-layout { grid-template-columns: 128px minmax(0,1fr) 128px; } }
+@media (max-width: 800px) {
+  .dsa-game--vertical .dsa-game-layout { grid-template-columns: minmax(0,1fr); }
+  .dsa-game--vertical .dsa-sidebar { position: static; }
+}
+@media (prefers-reduced-motion: reduce) { .dsa-game .dsa-dice-progress > .dsa-roll-progress { animation: none; } }
+
+/* Duration follows the player's hold; dice settle at an upright face. */
+.dsa-game--vertical .dsa-dice-face.dsa-dice-rolling {
+  animation: dsa-compact-dice-spin var(--roll-duration, 900ms) cubic-bezier(.12,.5,.3,1) both;
+}
+.dsa-game--vertical .dsa-dice-face.dsa-dice-rolling:nth-child(2) {
+  animation-name: dsa-compact-dice-spin-reverse;
+}
+@keyframes dsa-compact-dice-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(var(--roll-angle, 720deg)); }
+}
+@keyframes dsa-compact-dice-spin-reverse {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(calc(-1 * var(--roll-angle, 720deg))); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dsa-game--vertical .dsa-dice-face.dsa-dice-rolling { animation: none; }
 }

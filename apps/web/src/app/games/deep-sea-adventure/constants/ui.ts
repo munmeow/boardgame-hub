@@ -1,0 +1,46 @@
+
+export const PLAYER_COLORS = [
+  "#f43f5e",
+  "#3b82f6",
+  "#22c55e",
+  "#f59e0b",
+  "#a855f7",
+  "#ec4899",
+];
+
+export const BOARD_UI = {
+  TILE_SIZE: 60,
+  TILE_GAP: 14,
+  DIVER_WIDTH: 42,
+  DIVER_HEIGHT: 54,
+
+  COLUMNS: 8,
+  CELL_WIDTH: 74,
+  CELL_HEIGHT: 88,
+
+  PADDING: 24,
+  TOP_SPACE: 155,
+
+  SUBMARINE_X: 105,
+  SUBMARINE_Y: 72,
+
+  RANDOM_OFFSET_X: 5,
+  RANDOM_OFFSET_Y: 8,
+  RANDOM_ROTATION: 12,
+
+  FLOAT_MIN_X: 1,
+  FLOAT_MAX_X: 3,
+
+  FLOAT_MIN_Y: 3,
+  FLOAT_MAX_Y: 4,
+
+  FLOAT_MIN_DURATION: 3000,
+  FLOAT_MAX_DURATION: 6000,
+} as const;
+
+export const DICE_ROLL_CONFIG = {
+  MAX_HOLD_DURATION: 2000,
+  MIN_ROLL_DURATION: 600,
+  MAX_ROLL_DURATION: 2400,
+  BOT_ROLL_DURATION: 900,
+} as const;

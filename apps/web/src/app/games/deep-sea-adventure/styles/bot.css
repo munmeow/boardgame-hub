@@ -1,0 +1,557 @@
+
+/* =========================================
+   LOBBY ROOT
+========================================= */
+
+.dsa-lobby.dsa-enhanced-lobby {
+  display: block;
+  box-sizing: border-box;
+
+  width: 100%;
+  max-width: 1100px;
+  min-width: 0;
+
+  margin: 0 auto;
+  padding: 28px 20px;
+
+  border: none;
+  background: transparent;
+  box-shadow: none;
+
+  color: #e2e8f0;
+
+  container-name: dsa-lobby;
+  container-type: inline-size;
+}
+
+.dsa-enhanced-lobby *,
+.dsa-enhanced-lobby *::before,
+.dsa-enhanced-lobby *::after {
+  box-sizing: border-box;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.dsa-enhanced-lobby .dsa-lobby-header {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.dsa-enhanced-lobby .dsa-lobby-header h1 {
+  margin: 0 0 8px;
+
+  color: #7dd3fc;
+  font-size: clamp(26px, 4vw, 40px);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.dsa-enhanced-lobby .dsa-lobby-header p {
+  margin: 0;
+
+  color: #94a3b8;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* =========================================
+   MAIN LAYOUT
+========================================= */
+
+.dsa-enhanced-lobby .dsa-lobby-content {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.15fr)
+    minmax(0, 0.85fr);
+
+  align-items: start;
+  gap: 20px;
+
+  width: 100%;
+  min-width: 0;
+}
+
+.dsa-enhanced-lobby .dsa-lobby-setup,
+.dsa-enhanced-lobby .dsa-bot-guide {
+  width: 100%;
+  min-width: 0;
+  padding: 20px;
+
+  border: 1px solid #1d3c50;
+  border-radius: 18px;
+
+  background: #0d2133;
+}
+
+.dsa-enhanced-lobby
+.dsa-lobby-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  margin-bottom: 18px;
+}
+
+.dsa-enhanced-lobby
+.dsa-lobby-section-heading h2 {
+  margin: 0;
+
+  color: #e2e8f0;
+  font-size: 20px;
+  font-weight: 750;
+  line-height: 1.3;
+}
+
+.dsa-enhanced-lobby .dsa-player-count {
+  flex-shrink: 0;
+  padding: 6px 10px;
+
+  border-radius: 8px;
+  background: rgba(34, 211, 238, 0.1);
+
+  color: #67e8f9;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* =========================================
+   PLAYER LIST
+========================================= */
+
+.dsa-enhanced-lobby .dsa-lobby-player-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dsa-enhanced-lobby .dsa-lobby-player-card {
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+
+  border: 1px solid #234056;
+  border-left: 3px solid var(--player-color);
+  border-radius: 12px;
+
+  background: #102638;
+}
+
+.dsa-enhanced-lobby .dsa-lobby-player-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  width: 100%;
+  min-width: 0;
+}
+
+.dsa-enhanced-lobby .dsa-lobby-avatar {
+  display: grid;
+  place-items: center;
+
+  flex: 0 0 34px;
+
+  width: 34px;
+  height: 34px;
+
+  border-radius: 50%;
+  background: var(--player-color);
+
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* =========================================
+   INPUTS & SELECTS
+========================================= */
+
+.dsa-enhanced-lobby .dsa-lobby-player-top input,
+.dsa-enhanced-lobby .dsa-lobby-player-top select,
+.dsa-enhanced-lobby .dsa-bot-select-row select {
+  display: block;
+
+  min-width: 0;
+  min-height: 38px;
+  max-width: 100%;
+
+  margin: 0;
+  padding: 8px 10px;
+
+  border: 1px solid #29475e;
+  border-radius: 8px;
+
+  outline: none;
+  background: #081b2c;
+
+  color: #e2e8f0;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.dsa-enhanced-lobby
+.dsa-lobby-player-top .dsa-player-name {
+  flex: 1 1 0;
+  width: 0;
+}
+
+.dsa-enhanced-lobby
+.dsa-lobby-player-top .dsa-player-type {
+  flex: 0 0 88px;
+  width: 88px;
+  padding-right: 6px;
+}
+
+.dsa-enhanced-lobby input:focus,
+.dsa-enhanced-lobby select:focus {
+  border-color: #38bdf8;
+}
+
+.dsa-enhanced-lobby select {
+  cursor: pointer;
+}
+
+.dsa-enhanced-lobby select option {
+  background: #102638;
+  color: #e2e8f0;
+}
+
+/* =========================================
+   REMOVE PLAYER
+========================================= */
+
+.dsa-enhanced-lobby .dsa-remove-player {
+  display: grid;
+  place-items: center;
+
+  flex: 0 0 28px;
+  width: 28px;
+  height: 38px;
+
+  margin: 0;
+  padding: 0;
+
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 8px;
+
+  background: rgba(239, 68, 68, 0.08);
+  color: #f87171;
+
+  font-size: 20px;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.dsa-enhanced-lobby .dsa-remove-player:hover {
+  background: rgba(239, 68, 68, 0.2);
+}
+
+/* =========================================
+   BOT DIFFICULTY SELECT
+========================================= */
+
+.dsa-enhanced-lobby .dsa-bot-select-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+
+  margin-top: 10px;
+  padding-top: 10px;
+
+  border-top: 1px solid #234056;
+}
+
+.dsa-enhanced-lobby .dsa-bot-select-row label {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.dsa-enhanced-lobby
+.dsa-bot-select-row .dsa-bot-difficulty {
+  width: 120px;
+  min-width: 0;
+
+  color: var(--bot-color);
+  font-weight: 700;
+
+  border-color: color-mix(
+    in srgb,
+    var(--bot-color) 35%,
+    #29475e
+  );
+}
+
+/* =========================================
+   BOT DIFFICULTY GUIDE
+========================================= */
+
+.dsa-enhanced-lobby .dsa-bot-guide-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  width: 100%;
+  min-width: 0;
+}
+
+.dsa-enhanced-lobby .dsa-bot-profile {
+  width: 100%;
+  min-width: 0;
+
+  padding: 14px;
+
+  border: 1px solid #223e52;
+  border-left: 3px solid var(--bot-color);
+  border-radius: 10px;
+
+  background: #102638;
+
+  transition:
+    background 150ms ease,
+    border-color 150ms ease;
+}
+
+.dsa-enhanced-lobby .dsa-bot-profile:hover {
+  border-color: var(--bot-color);
+  background: #142d42;
+}
+
+.dsa-enhanced-lobby
+.dsa-bot-profile-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  width: 100%;
+  min-width: 0;
+}
+
+.dsa-enhanced-lobby .dsa-bot-profile-icon {
+  display: grid;
+  place-items: center;
+
+  flex: 0 0 30px;
+
+  width: 30px;
+  height: 30px;
+
+  border-radius: 8px;
+
+  background: color-mix(
+    in srgb,
+    var(--bot-color) 12%,
+    transparent
+  );
+
+  color: var(--bot-color);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.dsa-enhanced-lobby .dsa-bot-profile h3 {
+  flex: 1;
+  min-width: 0;
+
+  margin: 0;
+
+  color: var(--bot-color);
+  font-size: 16px;
+  font-weight: 750;
+  line-height: 1.3;
+}
+
+.dsa-enhanced-lobby .dsa-bot-profile p {
+  margin: 8px 0 0;
+
+  color: #a3b5c7;
+  font-size: 12px;
+  line-height: 1.6;
+
+  overflow-wrap: anywhere;
+}
+
+/* =========================================
+   STARS
+========================================= */
+
+.dsa-enhanced-lobby .dsa-difficulty-stars {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 3px;
+
+  font-size: 12px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.dsa-enhanced-lobby .dsa-star-filled {
+  color: var(--bot-color);
+}
+
+.dsa-enhanced-lobby .dsa-star-empty {
+  color: #304355;
+}
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.dsa-enhanced-lobby .dsa-add-player-button {
+  display: block;
+
+  width: 100%;
+  min-height: 42px;
+
+  margin: 12px 0 0;
+  padding: 10px;
+
+  border: 1px dashed #31556d;
+  border-radius: 9px;
+
+  background: rgba(56, 189, 248, 0.04);
+  color: #7dd3fc;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 650;
+
+  cursor: pointer;
+}
+
+.dsa-enhanced-lobby
+.dsa-add-player-button:hover:not(:disabled) {
+  border-color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.dsa-enhanced-lobby
+.dsa-start-adventure-button {
+  display: block;
+
+  width: 100%;
+  min-height: 48px;
+
+  margin: 14px 0 0;
+  padding: 12px;
+
+  border: 1px solid #0891b2;
+  border-radius: 10px;
+
+  background: linear-gradient(
+    135deg,
+    #0891b2,
+    #0369a1
+  );
+
+  color: #ffffff;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 750;
+
+  cursor: pointer;
+}
+
+.dsa-enhanced-lobby
+.dsa-start-adventure-button:hover:not(:disabled) {
+  filter: brightness(1.15);
+}
+
+.dsa-enhanced-lobby button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.dsa-enhanced-lobby button:focus-visible {
+  outline: 2px solid #67e8f9;
+  outline-offset: 3px;
+}
+
+/* =========================================
+   IN-GAME BOT LABEL
+========================================= */
+
+.dsa-bot-level {
+  display: inline-block;
+
+  margin-top: 4px;
+
+  color: #67e8f9;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+
+  text-transform: uppercase;
+}
+
+/* =========================================
+   RESPONSIVE - CONTAINER WIDTH
+========================================= */
+
+@container dsa-lobby (max-width: 800px) {
+  .dsa-enhanced-lobby .dsa-lobby-content {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .dsa-enhanced-lobby .dsa-lobby-setup,
+  .dsa-enhanced-lobby .dsa-bot-guide {
+    padding: 16px;
+  }
+}
+
+@container dsa-lobby (max-width: 380px) {
+  .dsa-enhanced-lobby .dsa-lobby-player-top {
+    flex-wrap: wrap;
+  }
+
+  .dsa-enhanced-lobby
+  .dsa-lobby-player-top .dsa-player-name {
+    flex: 1 1 calc(100% - 50px);
+    width: auto;
+  }
+
+  .dsa-enhanced-lobby
+  .dsa-lobby-player-top .dsa-player-type {
+    flex: 1 1 auto;
+    width: auto;
+  }
+
+  .dsa-enhanced-lobby
+  .dsa-lobby-section-heading h2 {
+    font-size: 17px;
+  }
+}
+
+/* =========================================
+   MOBILE FALLBACK
+========================================= */
+
+@media (max-width: 850px) {
+  .dsa-lobby.dsa-enhanced-lobby {
+    padding: 20px 12px;
+  }
+
+  .dsa-enhanced-lobby .dsa-lobby-content {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dsa-enhanced-lobby *,
+  .dsa-enhanced-lobby *::before,
+  .dsa-enhanced-lobby *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}

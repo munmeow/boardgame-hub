@@ -1,0 +1,35 @@
+/* Scoped to the hub; existing game styling stays intact. */
+body:has(.bgh-shell) { margin: 0; min-width: 320px; display: block; background: #071321; }
+#root:has(.bgh-shell) { width: 100%; max-width: none; padding: 0; margin: 0; text-align: initial; }
+.bgh-shell { min-height: 100dvh; color: #e5edf6; background: #071321; font-family: Inter, system-ui, sans-serif; line-height: 1.5; }
+.bgh-shell, .bgh-shell * { box-sizing: border-box; }
+.bgh-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px clamp(16px, 4vw, 48px); border-bottom: 1px solid #233649; background: #0a1929; }
+.bgh-brand { display: inline-flex; align-items: center; gap: 10px; color: #f1f5f9; font-weight: 750; text-decoration: none; }
+.bgh-logo { color: #67e8f9; font-size: 24px; line-height: 1; }
+.bgh-status { display: inline-block; color: #a8bdcd; font-size: 12px; border: 1px solid #354a5d; border-radius: 6px; padding: 4px 9px; }
+.bgh-back { color: #a5eaf5; text-decoration: none; font-size: 13px; }
+.bgh-shell--playing .bgh-header { padding-block: 5px; min-height: 36px; }
+.bgh-shell--playing .dsa-game { min-height: calc(100dvh - 36px); }
+.bgh-home { max-width: 1120px; margin: auto; padding: clamp(24px, 5vw, 60px) 20px; }
+.bgh-intro { margin-bottom: 36px; }
+.bgh-eyebrow { color: #67e8f9; font-size: 11px; letter-spacing: .14em; font-weight: 750; margin: 0 0 8px; }
+.bgh-intro h1 { font-size: clamp(32px, 5vw, 55px); line-height: 1.1; margin: 0 0 14px; letter-spacing: -.035em; color: #f4f8fc; }
+.bgh-intro > p:last-child, .bgh-card-body > p:not(.bgh-eyebrow), .bgh-coming p:not(.bgh-eyebrow) { color: #a8bdcd; }
+.bgh-home h2 { font-size: 20px; margin: 0 0 16px; }
+.bgh-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: 18px; align-items: start; }
+.bgh-game-card, .bgh-coming { border: 1px solid #284456; background: #102333; border-radius: 16px; overflow: hidden; min-width: 0; }
+.bgh-cover { height: 210px; position: relative; display: grid; place-items: center; isolation: isolate; overflow: hidden; background: radial-gradient(ellipse at 50% 0%, #176078, transparent 70%), linear-gradient(160deg,#0b334c,#061323); }
+.bgh-cover-ring { position: absolute; border: 1px solid #66d7e62e; border-radius: 50%; aspect-ratio: 1; width: 210px; }
+.bgh-cover-ring--inner { width: 145px; }
+.bgh-cover-mark { font-size: 82px; color: #9ae9ed; line-height: 1; transform: translateY(-12px); }
+.bgh-cover-label { position: absolute; bottom: 18px; letter-spacing: .28em; font-size: 13px; color: #c5f3fa; font-weight: 700; }
+.bgh-card-body, .bgh-coming { padding: 22px; }
+.bgh-card-body h3, .bgh-coming h3 { color: #f1f5f9; margin: 0; font-size: 24px; }
+.bgh-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+.bgh-tags span { border: 1px solid #355164; border-radius: 6px; padding: 4px 9px; color: #bbd4e4; font-size: 12px; }
+.bgh-primary { display: block; background: #087c9c; color: #fff; text-align: center; padding: 11px 16px; border-radius: 8px; font-weight: 700; text-decoration: none; }
+.bgh-primary:hover { background: #096b89; }
+.bgh-shell a:focus-visible { outline: 2px solid #67e8f9; outline-offset: 3px; }
+.bgh-note { font-size: 12px; margin: 12px 0 0; }
+.bgh-footer { margin-top: 36px; color: #8fa8ba; font-size: 12px; }
+@media (max-width: 680px) { .bgh-grid { grid-template-columns: 1fr; } .bgh-cover { height: 180px; } .bgh-card-body, .bgh-coming { padding: 16px; } }

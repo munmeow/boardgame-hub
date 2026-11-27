@@ -1,5 +1,8 @@
 
-import type { GameState } from "../types";
+import type {
+  GameState,
+  DiceResult,
+} from "../types";
 
 import {
   startTurn,
@@ -14,10 +17,19 @@ import { startNextRound } from "./round";
 
 export type GameAction =
   | { type: "START_TURN" }
-  | { type: "DECLARE_DIRECTION"; turnBack: boolean }
-  | { type: "ROLL_DICE" }
+  | {
+      type: "DECLARE_DIRECTION";
+      turnBack: boolean;
+    }
+  | {
+      type: "ROLL_DICE";
+      dice?: DiceResult;
+    }
   | { type: "PICK_UP_TREASURE" }
-  | { type: "DROP_TREASURE"; bundleId: string }
+  | {
+      type: "DROP_TREASURE";
+      bundleId: string;
+    }
   | { type: "SKIP_TREASURE" }
   | { type: "NEXT_ROUND" };
 
@@ -36,7 +48,7 @@ export function applyAction(
       );
 
     case "ROLL_DICE":
-      return swim(state);
+      return swim(state, action.dice);
 
     case "PICK_UP_TREASURE":
       return takeTreasure(state);
