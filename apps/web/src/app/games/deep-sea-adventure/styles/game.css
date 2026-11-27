@@ -2026,3 +2026,60 @@
 @media (prefers-reduced-motion: reduce) {
   .dsa-game--vertical .dsa-dice-face.dsa-dice-rolling { animation: none; }
 }
+
+/* Mobile game: board and action controls share the visible viewport. */
+@media (max-width: 800px) {
+  .bgh-shell--playing:has(.dsa-game--vertical:not(.dsa-summary-active)) { height:100dvh; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
+  .bgh-shell--playing:has(.dsa-game--vertical:not(.dsa-summary-active)) > .bgh-header { flex:0 0 auto; }
+  .dsa-game--vertical:not(.dsa-summary-active) { flex:1; min-height:0; height:auto; display:flex; flex-direction:column; padding:5px 8px max(6px,env(safe-area-inset-bottom)); overflow:hidden; }
+  .dsa-game--vertical:not(.dsa-summary-active) .dsa-header { flex:0 0 auto; margin:0 0 5px; align-items:center; }
+  .dsa-game--vertical:not(.dsa-summary-active) .dsa-header h1 { font-size:17px; }
+  .dsa-game--vertical:not(.dsa-summary-active) .dsa-header p { font-size:11px; margin:0; }
+  .dsa-game--vertical:not(.dsa-summary-active) .dsa-header button { min-height:30px; padding:4px 8px; }
+  .dsa-game--vertical:not(.dsa-summary-active) .dsa-game-layout { flex:1; min-height:0; display:grid; grid-template-columns:minmax(0,1fr); grid-template-rows:minmax(0,1fr) auto; gap:5px; align-items:stretch; }
+  .dsa-game--vertical:not(.dsa-summary-active) .dsa-main-board { min-height:0; display:flex; flex-direction:column; }
+  .dsa-game--vertical:not(.dsa-summary-active) .dsa-table-layout { flex:1; min-height:0; grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:auto minmax(0,1fr); gap:4px; align-items:stretch; }
+  .dsa-game--vertical:not(.dsa-summary-active) .dsa-table-center { min-height:0; display:flex; align-items:center; justify-content:center; }
+  .dsa-game--vertical:not(.dsa-summary-active) .dsa-board-panel { width:100%; max-height:100%; border-radius:10px; box-shadow:none; }
+  .dsa-game--vertical .dsa-board-scroll { overflow:hidden; }
+  .dsa-game--vertical .dsa-player-column { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:3px; }
+  .dsa-game--vertical .dsa-compact-player { padding:3px; border-radius:6px; box-shadow:none; }
+  .dsa-game--vertical .dsa-compact-player-header { gap:3px; margin:0 0 2px; }
+  .dsa-game--vertical .dsa-player-color { width:6px; height:6px; }
+  .dsa-game--vertical .dsa-compact-player-name { font-size:10px; }
+  .dsa-game--vertical .dsa-compact-player-stats { gap:2px; }
+  .dsa-game--vertical .dsa-compact-stat { padding:1px; gap:0; }
+  .dsa-game--vertical .dsa-compact-stat span { font-size:9px; }
+  .dsa-game--vertical .dsa-compact-stat strong { font-size:13px; }
+  .dsa-game--vertical .dsa-collected-treasures,.dsa-game--vertical .dsa-cargo-treasures { max-height:19px; margin-top:2px; padding-top:1px; gap:2px; }
+  .dsa-game--vertical .dsa-collected-treasures { grid-template-columns:repeat(auto-fill,minmax(12px,1fr)); }
+  .dsa-game--vertical .dsa-cargo-bundle { padding:0; }
+  .dsa-game--vertical .dsa-cargo-bundle svg { width:12px; height:12px; }
+  .dsa-game--vertical:not(.dsa-summary-active) .dsa-sidebar { min-width:0; gap:4px; max-height:45dvh; overflow-y:auto; overscroll-behavior:contain; }
+  .dsa-game--vertical .dsa-oxygen,.dsa-game--vertical .dsa-oxygen-meter { padding:4px 8px; }
+  .dsa-game--vertical .dsa-oxygen-header { margin-bottom:2px; font-size:11px; }
+  .dsa-game--vertical .dsa-oxygen-track,.dsa-game--vertical .dsa-oxygen-bar { height:7px; }
+  .dsa-game--vertical .dsa-control-card { padding:5px 7px; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:4px 8px; align-items:center; }
+  .dsa-game--vertical .dsa-current-turn { grid-column:1/-1; padding:0; border:0; gap:5px; }
+  .dsa-game--vertical .dsa-current-turn > div { display:flex; align-items:center; gap:6px; min-width:0; flex-wrap:wrap; }
+  .dsa-game--vertical .dsa-turn-label { margin:0; font-size:9px; letter-spacing:.4px; }
+  .dsa-game--vertical .dsa-current-turn h2 { font-size:13px; }
+  .dsa-game--vertical .dsa-dice-container { margin:0; padding:3px; gap:2px; min-width:0; }
+  .dsa-game--vertical .dsa-dice-heading { font-size:10px; }
+  .dsa-game--vertical .dsa-dice-pair { margin:2px 0; gap:5px; }
+  .dsa-game--vertical .dsa-dice-face { width:29px; height:29px; padding:4px; gap:2px; }
+  .dsa-game--vertical .dsa-dice-stats { margin:2px 0; gap:2px; }
+  .dsa-game--vertical .dsa-dice-stat { padding:2px; min-width:0; }
+  .dsa-game--vertical .dsa-dice-stat span { font-size:8px; }
+  .dsa-game--vertical .dsa-dice-stat strong { font-size:12px; }
+  .dsa-game--vertical .dsa-control-card .dsa-panel,.dsa-game--vertical .dsa-control-card .dsa-action-panel { margin:0; min-width:0; font-size:11px; }
+  .dsa-game--vertical .dsa-control-card > .dsa-panel:only-of-type { grid-column:1/-1; }
+  .dsa-game--vertical .dsa-control-card .dsa-actions { margin:0; gap:3px; }
+  .dsa-game--vertical .dsa-control-card button { min-height:40px; padding:4px 5px; font-size:12px; }
+  .dsa-game--vertical .dsa-control-card .dsa-animation-status,.dsa-game--vertical .dsa-control-card > p { margin:0; padding:3px; font-size:11px; min-height:0; }
+  .dsa-game--vertical .dsa-warning,.dsa-game--vertical .dsa-error { padding:4px 6px; font-size:11px; }
+  .dsa-game--vertical .dsa-hold-roll { gap:3px; }
+  .dsa-game--vertical .dsa-roll-power-label { font-size:10px; }
+  .dsa-game--vertical .dsa-roll-power { height:5px; }
+  .dsa-game--vertical .dsa-drop-treasure-icon { width:14px; height:14px; }
+}
