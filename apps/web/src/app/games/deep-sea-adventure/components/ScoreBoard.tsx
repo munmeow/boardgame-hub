@@ -21,6 +21,7 @@ import { useEffect, useState } from "react";
 interface Props {
   state: GameState;
   onNextRound: () => void;
+  hostControlsDisabled?: boolean;
   onRestart: () => void;
   previousTreasureCounts: Record<string, number>;
 }
@@ -220,6 +221,7 @@ function Confetti() {
 export default function ScoreBoard({
   state,
   onNextRound,
+  hostControlsDisabled = false,
   onRestart,
   previousTreasureCounts,
 }: Props) {
@@ -501,9 +503,12 @@ export default function ScoreBoard({
 
               onNextRound();
             }}
+            disabled={hostControlsDisabled && (isFinal || !isGameFinished)}
             autoFocus
           >
-            {isFinal
+            {hostControlsDisabled && (isFinal || !isGameFinished)
+              ? "Waiting for host…"
+              : isFinal
               ? "↻ New game"
               : isGameFinished
                 ? "View Final Results →"

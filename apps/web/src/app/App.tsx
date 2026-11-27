@@ -1,14 +1,17 @@
 import { useEffect, useState, type MouseEvent } from "react";
 import DeepSeaAdventure from "./games/deep-sea-adventure/components/DeepSeaAdventure";
 import "./hub.css";
+import PrivateRooms from "./online/PrivateRooms";
 
 const GAME_ROUTE = "#/games/abyss-relay";
 
 export default function App() {
-  const [playing, setPlaying] = useState(() => window.location.hash === GAME_ROUTE);
+  const [route, setRoute] = useState(() => window.location.hash);
+  const playing = route === GAME_ROUTE;
+  const online = route.startsWith("#/rooms");
 
   useEffect(() => {
-    const sync = () => setPlaying(window.location.hash === GAME_ROUTE);
+    const sync = () => setRoute(window.location.hash);
     window.addEventListener("hashchange", sync);
     return () => window.removeEventListener("hashchange", sync);
   }, []);
@@ -24,7 +27,7 @@ export default function App() {
   }
 
   return (
-    <div className={`bgh-shell ${playing ? "bgh-shell--playing" : ""}`}>
+    <div className={`bgh-shell ${(playing || online) ? "bgh-shell--playing" : ""}`}>
       <header className="bgh-header">
         <a className="bgh-brand" href="#/" onClick={playing ? leaveGame : undefined}>
           <span className="bgh-logo" aria-hidden="true">◆</span>
@@ -33,11 +36,13 @@ export default function App() {
         {playing ? (
           <a className="bgh-back" href="#/" onClick={leaveGame}>Game library</a>
         ) : (
-          <span className="bgh-status">Local preview</span>
+          <span className="bgh-status">Online rooms</span>
         )}
       </header>
       {playing ? (
         <DeepSeaAdventure />
+      ) : online ? (
+        <PrivateRooms />
       ) : (
         <main className="bgh-home">
           <section className="bgh-intro">
@@ -65,14 +70,14 @@ export default function App() {
                 </div>
               </article>
               <article className="bgh-coming">
-                <p className="bgh-eyebrow">IN DEVELOPMENT</p>
+                <p className="bgh-eyebrow">ONLINE MULTIPLAYER</p>
                 <h3>Private rooms</h3>
                 <p>Play with friends on separate devices using an invitation code.</p>
-                <span className="bgh-status">Not available yet</span>
+                <a className="bgh-primary" href="#/rooms">Create / Join Room</a>
               </article>
             </div>
           </section>
-          <footer className="bgh-footer">Development preview · Online multiplayer is not enabled yet.</footer>
+          <footer className="bgh-footer">Development preview · Private rooms and online gameplay.</footer>
         </main>
       )}
     </div>
