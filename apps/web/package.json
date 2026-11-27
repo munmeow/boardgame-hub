@@ -14,10 +14,11 @@
     "prebuild": "npm run build -w @boardgame-hub/abyss-relay"
   },
   "dependencies": {
+    "@boardgame-hub/abyss-relay": "0.0.0",
     "lucide-react": "^1.79.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "@boardgame-hub/abyss-relay": "0.0.0"
+    "socket.io-client": "^4.8.4"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
