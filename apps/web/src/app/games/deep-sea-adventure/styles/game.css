@@ -2083,3 +2083,31 @@
   .dsa-game--vertical .dsa-roll-power { height:5px; }
   .dsa-game--vertical .dsa-drop-treasure-icon { width:14px; height:14px; }
 }
+
+/* Responsive desktop/tablet: use the available screen without stretching the ocean art. */
+@media (min-width: 801px) {
+  .dsa-game--vertical { max-width:none; padding:8px clamp(10px,1.1vw,22px); }
+  .dsa-game--vertical .dsa-header { margin-bottom:8px; }
+  .dsa-game--vertical .dsa-game-layout { grid-template-columns:minmax(0,1fr) clamp(225px,19vw,340px); gap:clamp(8px,1vw,16px); align-items:start; }
+  .dsa-game--vertical .dsa-table-center { min-width:0; align-self:start; }
+  .dsa-game--vertical .dsa-board-panel { width:100%; background:transparent; border:0; border-radius:0; box-shadow:none; }
+  .dsa-game--vertical .dsa-board-scroll { width:100%; overflow:hidden; }
+  .dsa-game--vertical .dsa-board-fit { border-radius:16px; }
+  .dsa-game--vertical .dsa-sidebar { min-width:0; }
+}
+@media (min-width: 1101px) {
+  .dsa-game--vertical .dsa-table-layout { grid-template-columns:clamp(92px,7.2vw,145px) minmax(0,1fr) clamp(92px,7.2vw,145px); gap:clamp(6px,.7vw,12px); }
+  .dsa-game--vertical .dsa-table-center { grid-column:auto; grid-row:auto; }
+  .dsa-game--vertical .dsa-player-column { display:flex; grid-row:auto; }
+}
+@media (min-width:801px) and (max-width:1100px) {
+  .dsa-game--vertical .dsa-table-layout { grid-template-columns:repeat(2,minmax(0,1fr)); gap:5px; }
+  .dsa-game--vertical .dsa-table-center { grid-column:1/-1; grid-row:2; }
+  .dsa-game--vertical .dsa-player-column { display:grid; grid-row:1; grid-template-columns:repeat(3,minmax(0,1fr)); gap:4px; }
+  .dsa-game--vertical .dsa-compact-player { padding:4px; }
+  .dsa-game--vertical .dsa-compact-player-header { margin-bottom:3px; }
+  .dsa-game--vertical .dsa-compact-player-name { font-size:11px; }
+  .dsa-game--vertical .dsa-compact-stat { padding:2px; }
+  .dsa-game--vertical .dsa-compact-stat strong { font-size:15px; }
+  .dsa-game--vertical .dsa-collected-treasures,.dsa-game--vertical .dsa-cargo-treasures { max-height:32px; }
+}
