@@ -55,6 +55,7 @@ import DiceRoller from "./DiceRoller";
 
 import "../styles/game.css";
 import { DICE_ROLL_CONFIG } from "../constants/ui";
+import { playGameSound } from "../../../gameSound";
 
 type AnimationPhase =
   | "idle"
@@ -104,13 +105,12 @@ export default function DeepSeaAdventure() {
 
   const sequenceRef = useRef(0);
 
-  const previousTreasureCountsRef = useRef<
-  Record<string, number>
->(restored?.previousTreasureCounts ?? {});
+  const [previousTreasureCounts, setPreviousTreasureCounts] =
+    useState<Record<string, number>>(restored?.previousTreasureCounts ?? {});
 
   useEffect(() => {
-    writeLocalSave(state ? { state, botLevels, previousTreasureCounts: previousTreasureCountsRef.current } : null);
-  }, [state, botLevels]);
+    writeLocalSave(state ? { state, botLevels, previousTreasureCounts } : null);
+  }, [state, botLevels, previousTreasureCounts]);
 
   const {
     animation,
@@ -133,6 +133,11 @@ export default function DeepSeaAdventure() {
 
   const isTurning =
     animationPhase === "turning";
+
+  useEffect(() => {
+    if (animationPhase === "rolling") playGameSound("roll");
+    if (animationPhase === "moving") playGameSound("splash");
+  }, [animationPhase]);
 
   const wait = useCallback(
     (duration: number) =>
@@ -173,7 +178,7 @@ export default function DeepSeaAdventure() {
           const nextState =
             applyAction(state, action);
 
-          writeLocalSave({ state: nextState, botLevels, previousTreasureCounts: previousTreasureCountsRef.current });
+          writeLocalSave({ state: nextState, botLevels, previousTreasureCounts });
           setAnimationPhase("turning");
 
           setDiceDisplay(null);
@@ -234,7 +239,7 @@ export default function DeepSeaAdventure() {
           setDiceDisplay(null);
 
           // Persist the committed roll before animation so reload cannot reroll.
-          writeLocalSave({ state: nextState, botLevels, previousTreasureCounts: previousTreasureCountsRef.current });
+          writeLocalSave({ state: nextState, botLevels, previousTreasureCounts });
           setAnimationPhase("rolling");
 
           const duration = requestedDuration === undefined || !Number.isFinite(requestedDuration)
@@ -303,13 +308,14 @@ const nextState = applyAction(state, action);
 
 // Save collected treasure counts before the next dive
 if (action.type === "NEXT_ROUND") {
-  previousTreasureCountsRef.current =
+  setPreviousTreasureCounts(
     Object.fromEntries(
       state.players.map((player) => [
         player.id,
         player.collected.length,
       ]),
-    );
+    ),
+  );
 }
 
 observeBotOpponentAction(state, action);
@@ -346,6 +352,7 @@ if (
     [
       state,
       botLevels,
+      previousTreasureCounts,
       wait,
       animateTurnBack,
       animateMovement,
@@ -359,7 +366,7 @@ if (
   ) {
     try {
 
-      previousTreasureCountsRef.current = {};
+      setPreviousTreasureCounts({});
 
       sequenceRef.current++;
 
@@ -401,7 +408,7 @@ if (
   const handleRestart = () => {
     resetOpponentModel();
 
-    previousTreasureCountsRef.current = {};
+    setPreviousTreasureCounts({});
 
     sequenceRef.current++;
 
@@ -421,13 +428,11 @@ if (
     setError(null);
   };
 
-  useEffect(() => {
-    return () => {
-      sequenceRef.current++;
-
-      busyRef.current = false;
-    };
+  const invalidateDispatch = useCallback(() => {
+    sequenceRef.current++;
+    busyRef.current = false;
   }, []);
+  useEffect(() => invalidateDispatch, [invalidateDispatch]);
 
   const currentPlayer =
     state?.phase === "playing"
@@ -636,9 +641,7 @@ if (
   <ScoreBoard
     key={state.round}
     state={state}
-    previousTreasureCounts={
-      previousTreasureCountsRef.current
-    }
+    previousTreasureCounts={previousTreasureCounts}
     onNextRound={() => {
       void dispatch({
         type: "NEXT_ROUND",

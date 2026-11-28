@@ -17,12 +17,14 @@ import { PLAYER_COLORS } from "../constants/ui";
 import "../styles/scoreboard.css";
 
 import { useEffect, useState } from "react";
+import { playGameSound } from "../../../gameSound";
 
 interface Props {
   state: GameState;
   onNextRound: () => void;
   hostControlsDisabled?: boolean;
   onRestart: () => void;
+  restartLabel?: string;
   previousTreasureCounts: Record<string, number>;
 }
 
@@ -223,6 +225,7 @@ export default function ScoreBoard({
   onNextRound,
   hostControlsDisabled = false,
   onRestart,
+  restartLabel = "↻ New game",
   previousTreasureCounts,
 }: Props) {
   const [showFinalResults, setShowFinalResults] =
@@ -498,6 +501,7 @@ export default function ScoreBoard({
 
               if (isGameFinished) {
                 setShowFinalResults(true);
+                playGameSound("victory");
                 return;
               }
 
@@ -509,7 +513,7 @@ export default function ScoreBoard({
             {hostControlsDisabled && (isFinal || !isGameFinished)
               ? "Waiting for host…"
               : isFinal
-              ? "↻ New game"
+              ? restartLabel
               : isGameFinished
                 ? "View Final Results →"
                 : "Next Dive →"}
@@ -517,6 +521,6 @@ export default function ScoreBoard({
         </footer>
       </section>
     </div>,
-    document.body,
+    document.querySelector(".bgh-shell") ?? document.body,
   );
 }

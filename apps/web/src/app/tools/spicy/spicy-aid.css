@@ -1,0 +1,30 @@
+.spicy-aid { --spicy-accent: #f6ce91; width: min(100%, 1040px); margin-inline: auto; padding: clamp(16px, 4vw, 44px); }
+.spicy-heading { margin-block-end: 24px; }
+.spicy-heading h1 { margin: 12px 0 4px; font-size: clamp(1.8rem, 4vw, 3rem); }
+.spicy-heading p, .spicy-panel > p { margin: 0 0 14px; color: #bbcad8; }
+.spicy-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 16px; }
+.spicy-panel { border: 1px solid #314656; border-radius: 14px; padding: clamp(14px, 3vw, 22px); background: #102333; }
+.spicy-panel h2 { margin: 0 0 10px; color: var(--spicy-accent); font-size: 1.25rem; }
+.spicy-rules { margin: 0; padding-inline-start: 20px; }
+.spicy-rules li + li { margin-block-start: 10px; }
+.spicy-fields, .spicy-panel fieldset, .spicy-panel label { display: grid; gap: 8px; }
+.spicy-panel label { gap: 4px; font-size: .875rem; }
+.spicy-panel :is(input, select, button) { font: inherit; min-height: 44px; padding: 7px 10px; border: 1px solid #456074; border-radius: 8px; color: #e5edf6; background: #0a1929; }
+.spicy-panel :is(input, select) { width: 100%; min-width: 0; }
+.spicy-panel :is(input, select, button):focus-visible, .spicy-heading a:focus-visible { outline: 2px solid var(--spicy-accent); outline-offset: 2px; }
+.spicy-panel button { cursor: pointer; }
+.spicy-panel button:disabled { opacity: .52; cursor: default; }
+.spicy-panel .spicy-button-primary { background: var(--spicy-accent); border-color: var(--spicy-accent); color: #142331; font-weight: 700; }
+.spicy-panel .spicy-example { margin: 14px 0 0; font-size: .875rem; }
+.spicy-result { margin-block-start: 12px; border-inline-start: 3px solid var(--spicy-accent); border-radius: 4px; padding: 8px 12px; background: #0a1929; overflow-wrap: anywhere; }
+.spicy-result p { margin: 0; }
+.spicy-result p + p { margin-block-start: 6px; }
+.spicy-result ul { margin: 6px 0 0; padding-inline-start: 20px; }
+.spicy-error { color: #fecaca; }
+.spicy-score { grid-column: 1 / -1; }
+.spicy-player-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 12px; }
+.spicy-panel fieldset { min-width: 0; margin: 0; padding: 10px; border: 1px solid #314656; border-radius: 8px; }
+.spicy-score-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-block-start: 12px; }
+.bgh-spicy-link { margin-block-start: 24px; }
+.bgh-spicy-link .bgh-primary { max-width: 260px; }
+@media (max-width: 680px) { .spicy-grid { grid-template-columns: minmax(0, 1fr); } }

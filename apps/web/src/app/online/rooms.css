@@ -8,3 +8,19 @@
 .bgh-room-member > .bgh-member-status--ready { color:#4ade80; background:#16392d; }
 .bgh-room-member > .bgh-member-status--waiting { color:#fbbf24; background:#3d301c; }
 .bgh-room-member > .bgh-member-status--offline { color:#94a3b8; background:#253240; }
+.dsa-turn-timer { font-variant-numeric: tabular-nums; color: #a5eaf5; font-weight: 700; }
+.dsa-turn-timer[data-urgent="true"] { color: #fbbf24; }
+.dsa-action-log { border: 1px solid #355164; border-radius: 8px; padding: 5px 8px; font-size: .85rem; }
+.dsa-action-log summary { cursor: pointer; padding-block: 6px; }
+.dsa-action-log ol { margin: 0; padding-inline-start: 1.2rem; max-height: 12rem; overflow: auto; }
+.dsa-action-log li + li { margin-block-start: .35rem; }
+.bgh-room-card h2 { margin: 0; }
+.dsa-reactions { position: relative; }
+.dsa-reaction-buttons { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 4px; }
+.dsa-reaction-buttons button { min-height: 44px; padding: 2px; }
+.dsa-reaction-live { position: fixed; z-index: 30; pointer-events: none; inset: auto 12px max(16px,env(safe-area-inset-bottom)) auto; }
+.dsa-reaction-live span { display: block; overflow-wrap: anywhere; max-width: 70vw; background: #10334b; color: #e5edf6; border: 1px solid #67e8f9; padding: 8px 12px; border-radius: 10px; }
+@media (prefers-reduced-motion: no-preference) {
+  .dsa-reaction-live span { animation: dsa-reaction-enter 250ms ease-out both; }
+  @keyframes dsa-reaction-enter { from { opacity: 0; transform: translateY(10px); } }
+}

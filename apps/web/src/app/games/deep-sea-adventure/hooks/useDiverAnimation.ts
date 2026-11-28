@@ -74,7 +74,7 @@ export function useDiverAnimation() {
     [],
   );
 
-  const cancelAnimation = useCallback(() => {
+  const cancelPendingMovement = useCallback(() => {
     sequenceRef.current++;
 
     for (const pending of pendingRef.current) {
@@ -86,9 +86,13 @@ export function useDiverAnimation() {
 
     busyRef.current = false;
 
+  }, []);
+
+  const cancelAnimation = useCallback(() => {
+    cancelPendingMovement();
     setAnimation(null);
     setIsAnimating(false);
-  }, []);
+  }, [cancelPendingMovement]);
 
   const animateTurnBack = useCallback(
     async ({
@@ -266,19 +270,7 @@ export function useDiverAnimation() {
     }
   }, []);
 
-  useEffect(() => {
-    return () => {
-      sequenceRef.current++;
-
-      for (const pending of pendingRef.current) {
-        window.clearTimeout(pending.timer);
-        pending.resolve(false);
-      }
-
-      pendingRef.current.clear();
-      busyRef.current = false;
-    };
-  }, []);
+  useEffect(() => cancelPendingMovement, [cancelPendingMovement]);
 
   return {
     animation,

@@ -65,7 +65,7 @@ function HoldToRoll({ onRoll }: { onRoll: (duration: number) => void }) {
       onKeyDown={e => { if (e.key === " " || e.key === "Enter") { e.preventDefault(); if (!e.repeat) begin(); } }}
       onKeyUp={e => { if (e.key === " " || e.key === "Enter") { e.preventDefault(); release(); } }}
       onClick={e => { if (e.detail === 0 && start.current === null) onRoll(MIN_ROLL_DURATION); }}>
-      {holding ? "Release to Roll" : "Hold to Roll"}
+      {holding ? "Release to Roll" : "Tap or Hold to Roll"}
     </button>
   </div>;
 }
