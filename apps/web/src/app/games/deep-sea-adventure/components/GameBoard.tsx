@@ -471,20 +471,32 @@ export default function GameBoard({
   useLayoutEffect(() => {
     const element = scrollRef.current;
     if (!element) return;
+    const center = element.closest<HTMLElement>(".dsa-table-center");
+    const game = element.closest<HTMLElement>(".dsa-game");
+    const viewport = window.visualViewport;
     const fit = () => {
-      const desktop = window.innerWidth > 800;
-      const availableHeight = window.innerHeight - element.getBoundingClientRect().top - 18;
-      const widthScale = element.clientWidth / boardWidth;
-      const heightScale = desktop ? availableHeight / boardHeight : Math.max(1, element.closest(".dsa-game-layout")?.querySelector(".dsa-table-center")?.clientHeight ?? availableHeight) / boardHeight;
-      setScale(Math.max(.01, Math.min(1, widthScale, heightScale)));
+      const mobile = window.innerWidth <= 800;
+      const summary = game?.classList.contains("dsa-summary-active");
+      const viewportBottom = viewport ? viewport.offsetTop + viewport.height : window.innerHeight;
+      // Measure the allocated table area, not the already-scaled canvas.
+      const width = Math.max(1, element.clientWidth - 2);
+      const height = mobile && !summary && center
+        ? center.clientHeight - 2
+        : viewportBottom - (center ?? element).getBoundingClientRect().top - 10;
+      const widthScale = width / boardWidth;
+      // Summary remains scrollable; live play fits both dimensions.
+      const heightScale = summary ? 1.6 : Math.max(1, height) / boardHeight;
+      // Desktop/tablet can enlarge beyond the original 1:1 canvas.
+      const next = Math.max(0.01, Math.min(mobile ? 1 : 1.8, widthScale, heightScale));
+      setScale(previous => Math.abs(previous - next) < 0.001 ? previous : next);
     };
     fit();
     const observer = new ResizeObserver(fit);
     observer.observe(element);
-    const center = element.closest(".dsa-table-center");
     if (center) observer.observe(center);
     window.addEventListener("resize", fit);
-    return () => { observer.disconnect(); window.removeEventListener("resize", fit); };
+    viewport?.addEventListener("resize", fit);
+    return () => { observer.disconnect(); window.removeEventListener("resize", fit); viewport?.removeEventListener("resize", fit); };
   }, [boardWidth, boardHeight]);
 
   const route = positions
